@@ -15,7 +15,6 @@ const userSchema = mongoose.Schema({
     },
     posts: {
         type: Array,
-        required: true,
     },
 });
 

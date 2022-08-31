@@ -15,6 +15,10 @@
         "cors": "^2.8.5",
         "dotenv": "^16.0.1",
         "express": "^4.18.1",
+<<<<<<< HEAD
+=======
+        "express-validator": "^6.14.2",
+>>>>>>> c888dd4fa752a98643c5ab88ac2912060e254566
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.5.0",
         "passport": "^0.6.0",
