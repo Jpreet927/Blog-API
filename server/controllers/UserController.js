@@ -11,14 +11,18 @@ const registerUser = [
     body("password", "Error: password should be at least 8 characters.")
         .trim()
         .isLength({ min: 8 }),
-    body("email").trim().custom(async (email) => {
-        try {
-            const emailInUse = await User.findOne({ email: email });
-            if (emailInUse) throw new Error("Error: email is already registered.")
-        } catch (error) {
-            throw new Error(`Error: ${error.message}`);
-        }
-    }),
+    body("confirm-password", "Error: password does not match.")
+        .trim(),
+    body("email")
+        .trim()
+        .custom(async (email) => {
+            try {
+                const emailInUse = await User.findOne({ email: email });
+                if (emailInUse) throw new Error("Error: email is already registered.")
+            } catch (error) {
+                throw new Error(`Error: ${error.message}`);
+            }
+        }),
     (req, res) => {
     console.log("Register post request");
     const { username, email, password } = req.body;
