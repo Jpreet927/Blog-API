@@ -13,6 +13,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    isAuthor: {
+        type: Boolean,
+        default: false,
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
     posts: {
         type: Array,
     },
