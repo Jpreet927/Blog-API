@@ -1,8 +1,9 @@
 const express = require("express");
 const connectToDB = require("./config/db");
 const cors = require("cors");
-const expressValidator = require("express-validator")
+const expressValidator = require("express-validator");
 require("dotenv").config();
+require("./config/passport");
 
 // App
 const app = express();
@@ -10,7 +11,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(expressValidator())
+// app.use(expressValidator);
 app.use(cors());
 
 // Routes

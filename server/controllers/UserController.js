@@ -8,6 +8,18 @@ const registerUser = [
     body("username", "Error: username cannot be blank.")
         .trim()
         .isLength({ min: 1 })
+        .custom(async (username) => {
+            try {
+                const usernameInUse = await User.findOne({
+                    username: username,
+                });
+                if (usernameInUse) {
+                    throw new Error("Error: username is already registered.");
+                }
+            } catch (error) {
+                throw new Error(`Error: ${error.message}`);
+            }
+        })
         .escape(),
     body("password", "Error: password should be at least 8 characters.")
         .trim()
@@ -28,8 +40,9 @@ const registerUser = [
         .custom(async (email) => {
             try {
                 const emailInUse = await User.findOne({ email: email });
-                if (emailInUse)
+                if (emailInUse) {
                     throw new Error("Error: email is already registered.");
+                }
             } catch (error) {
                 throw new Error(`Error: ${error.message}`);
             }
@@ -49,10 +62,7 @@ const registerUser = [
         const { username, email, password } = req.body;
 
         try {
-            const hashedPassword = await bcrypt.hash(
-                password,
-                process.env.SALT
-            );
+            const hashedPassword = await bcrypt.hash(password, 10);
             const newUser = new User({
                 username,
                 email,
@@ -62,18 +72,17 @@ const registerUser = [
             await newUser.save();
 
             if (newUser) {
-                const token = jwt.sign(
-                    { sub: newUser.id },
-                    process.env.JWT_SECRET,
-                    { expiresIn: "2h" }
-                );
+                let body = { _id: newUser.id, username: newUser.username };
+                const token = jwt.sign({ user: body }, process.env.JWT_SECRET, {
+                    expiresIn: "30d",
+                });
 
-                res.status(201).json({
+                res.status(200).json({
                     _id: newUser.id,
                     username: newUser.username,
                     email: newUser.email,
                     token,
-                    message: "Sucessfully created user.",
+                    message: "Successfully created user.",
                 });
             }
         } catch (error) {
@@ -97,6 +106,7 @@ const loginUser = [
 
         passport.authenticate("local", { session: false }, (err, user) => {
             if (err) return next(err);
+            console.log(user);
 
             if (!user) {
                 return res.status(400).json({
@@ -104,17 +114,31 @@ const loginUser = [
                 });
             }
 
-            const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET, {
-                expiresIn: "2h",
+            req.login(user, { session: false }, (err) => {
+                if (err) {
+                    res.status(403).json({
+                        message: `Error: could not log in user (Passport) - ${err}`,
+                    });
+                }
             });
 
-            return res.status(201).json({
+            let body = { _id: user.id, username: user.username };
+            const token = jwt.sign({ user: body }, process.env.JWT_SECRET, {
+                expiresIn: "30d",
+            });
+
+            return res.status(200).json({
                 token,
                 _id: user.id,
-                username: user.username,
+                user,
+                message: "Successfully logged in.",
             });
         })(req, res);
     },
 ];
 
-module.exports = { registerUser, loginUser };
+const getUserProfile = (req, res) => {
+    return res.status(200).json("User Profile Page");
+};
+
+module.exports = { registerUser, loginUser, getUserProfile };

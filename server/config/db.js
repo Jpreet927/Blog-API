@@ -6,7 +6,6 @@ const dbURI = process.env.MONGO_URI;
 const connectToDB = async () => {
     mongoose.connect(dbURI, {
         useNewUrlParser: true,
-        useFindAndModify: false,
         useUnifiedTopology: true,
     });
 
