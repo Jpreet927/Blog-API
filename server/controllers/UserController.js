@@ -72,7 +72,11 @@ const registerUser = [
             await newUser.save();
 
             if (newUser) {
-                let body = { _id: newUser.id, username: newUser.username };
+                let body = {
+                    _id: newUser.id,
+                    username: newUser.username,
+                    admin: false,
+                };
                 const token = jwt.sign({ user: body }, process.env.JWT_SECRET, {
                     expiresIn: "30d",
                 });
@@ -104,36 +108,45 @@ const loginUser = [
             });
         }
 
-        passport.authenticate("local", { session: false }, (err, user) => {
-            if (err) return next(err);
-            console.log(user);
+        passport.authenticate(
+            "local",
+            { session: false },
+            (err, user, info) => {
+                if (err) return next(err);
+                console.log(info);
 
-            if (!user) {
-                return res.status(400).json({
-                    message: "Error: Invalid credentials.",
-                });
-            }
-
-            req.login(user, { session: false }, (err) => {
-                if (err) {
-                    res.status(403).json({
-                        message: `Error: could not log in user (Passport) - ${err}`,
+                if (!user) {
+                    return res.status(400).json({
+                        message: "Error: User not found, invalid credentials.",
+                        info: info,
                     });
                 }
-            });
 
-            let body = { _id: user.id, username: user.username };
-            const token = jwt.sign({ user: body }, process.env.JWT_SECRET, {
-                expiresIn: "30d",
-            });
+                req.login(user, { session: false }, (err) => {
+                    if (err) {
+                        res.status(403).json({
+                            message: `Error: could not log in user (Passport) - ${err}`,
+                        });
+                    }
+                });
 
-            return res.status(200).json({
-                token,
-                _id: user.id,
-                user,
-                message: "Successfully logged in.",
-            });
-        })(req, res);
+                let body = {
+                    _id: user.id,
+                    username: user.username,
+                    admin: user.isAdmin,
+                };
+                const token = jwt.sign({ user: body }, process.env.JWT_SECRET, {
+                    expiresIn: "30d",
+                });
+
+                return res.status(200).json({
+                    token,
+                    _id: user.id,
+                    user,
+                    message: "Successfully logged in.",
+                });
+            }
+        )(req, res);
     },
 ];
 

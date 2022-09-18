@@ -12,28 +12,33 @@ const options = {
 };
 
 passport.use(
-    new LocalStrategy({ session: false }, async (email, password, done) => {
-        try {
-            const user = await User.findOne({ email });
-            console.log(user);
-            if (!user) {
-                return done(null, false);
+    new LocalStrategy(
+        { usernameField: "email", passwordField: "password", session: false },
+        async (email, password, done) => {
+            try {
+                const user = await User.findOne({ email });
+                console.log(user);
+                if (!user) {
+                    return done(null, false, {
+                        message: "Email not registered.",
+                    });
+                }
+
+                const isPasswordCorrect = await bcrypt.compare(
+                    password,
+                    user.password
+                );
+
+                if (!isPasswordCorrect) {
+                    return done(null, false, { message: "Invalid password." });
+                }
+
+                return done(null, user);
+            } catch (error) {
+                return done(error);
             }
-
-            const isPasswordCorrect = await bcrypt.compare(
-                password,
-                user.password
-            );
-
-            if (!isPasswordCorrect) {
-                return done(null, false, { message: "Invalid password." });
-            }
-
-            return done(null, user);
-        } catch (error) {
-            return done(error);
         }
-    })
+    )
 );
 
 passport.use(

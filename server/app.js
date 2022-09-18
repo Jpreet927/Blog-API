@@ -2,6 +2,7 @@ const express = require("express");
 const connectToDB = require("./config/db");
 const cors = require("cors");
 const expressValidator = require("express-validator");
+const passport = require("passport");
 require("dotenv").config();
 require("./config/passport");
 
