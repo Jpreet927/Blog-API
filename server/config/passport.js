@@ -42,11 +42,29 @@ passport.use(
 );
 
 passport.use(
+    "user-auth",
     new JwtStrategy(options, async (jwtPayload, done) => {
         try {
             const user = await User.findOne({ id: jwtPayload.id });
 
             if (user) {
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
+        } catch (error) {
+            return done(error);
+        }
+    })
+);
+
+passport.use(
+    "admin-auth",
+    new JwtStrategy(options, async (jwtPayload, done) => {
+        try {
+            const user = await User.findOne({ id: jwtPayload.id });
+
+            if (user.isAdmin) {
                 return done(null, user);
             } else {
                 return done(null, false);

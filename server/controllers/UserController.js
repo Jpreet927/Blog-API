@@ -134,6 +134,7 @@ const loginUser = [
                     _id: user.id,
                     username: user.username,
                     admin: user.isAdmin,
+                    author: user.isAuthor,
                 };
                 const token = jwt.sign({ user: body }, process.env.JWT_SECRET, {
                     expiresIn: "30d",
@@ -154,4 +155,25 @@ const getUserProfile = (req, res) => {
     return res.status(200).json("User Profile Page");
 };
 
-module.exports = { registerUser, loginUser, getUserProfile };
+const setAuthorRequest = async (req, res) => {
+    try {
+        if (req.body === "approve") {
+            await User.findByIdAndUpdate(req.params.user, {
+                isAuthor: true,
+            });
+            return res
+                .status(200)
+                .json({ message: "Author application was approved." });
+        } else {
+            return res
+                .status(200)
+                .json({ message: "Author application was denied." });
+        }
+    } catch (error) {
+        return res.status(500).json({
+            message: `Error: could not fulfill application review. ${error}`,
+        });
+    }
+};
+
+module.exports = { registerUser, loginUser, getUserProfile, setAuthorRequest };

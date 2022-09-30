@@ -3,6 +3,7 @@ const {
     registerUser,
     loginUser,
     getUserProfile,
+    setAuthorRequest,
 } = require("../controllers/UserController");
 const passport = require("passport");
 const router = express.Router();
@@ -22,8 +23,17 @@ router.post("/login", loginUser);
 // @access   Private
 router.get(
     "/profile",
-    passport.authenticate("jwt", { session: false }),
+    passport.authenticate("user-auth", { session: false }),
     getUserProfile
+);
+
+// @desc     Change a users permissions to "Author"
+// @route    POST /api/users/:user/application
+// @access   Private (admin only)
+router.put(
+    "/:user/application",
+    passport.authenticate("admin-auth", { session: false }),
+    setAuthorRequest
 );
 
 module.exports = router;

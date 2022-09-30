@@ -14,7 +14,11 @@ const {
 // @desc     Create a post
 // @route    POST /api/posts/
 // @access   Private (authors, admins)
-router.post("/", passport.authenticate("jwt", { session: false }), createPost);
+router.post(
+    "/",
+    passport.authenticate("user-auth", { session: false }),
+    createPost
+);
 
 // @desc     Get all posts
 // @route    GET /api/posts/
@@ -31,7 +35,7 @@ router.get("/:postid", getPost);
 // @access   Private (authors, admins)
 router.put(
     "/:postid",
-    passport.authenticate("jwt", { session: false }),
+    passport.authenticate("user-auth", { session: false }),
     updatePost
 );
 
@@ -40,7 +44,7 @@ router.put(
 // @access   Private (authors, admins)
 router.delete(
     "/:postid",
-    passport.authenticate("jwt", { session: false }),
+    passport.authenticate("user-auth", { session: false }),
     deletePost
 );
 
@@ -49,7 +53,7 @@ router.delete(
 // @access   Private (admins)
 router.put(
     "/:postid/publish",
-    passport.authenticate("jwt", { session: false }),
+    passport.authenticate("user-auth", { session: false }),
     publishPost
 );
 
@@ -58,7 +62,8 @@ router.put(
 // @access   Private (admins)
 router.put(
     "/:postid/publish",
-    passport.authenticate("jwt", { session: false }),
+    passport.authenticate("user-auth", { session: false }),
     unpublishPost
 );
+
 module.exports = router;
