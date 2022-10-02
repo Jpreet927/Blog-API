@@ -13,7 +13,7 @@ const createPost = async (req, res) => {
         await post.save();
         return res
             .status(200)
-            .json({ message: "Successfully uploaded post", newPost });
+            .json({ message: "Successfully uploaded post", post });
     } catch (error) {
         return res.status(404).json({ message: "Could not upload post." });
     }

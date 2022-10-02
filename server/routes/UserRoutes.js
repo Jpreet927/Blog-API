@@ -29,7 +29,7 @@ router.get(
 
 // @desc     Change a users permissions to "Author"
 // @route    POST /api/users/:user/application
-// @access   Private (admin only)
+// @access   Private (admins)
 router.put(
     "/:user/application",
     passport.authenticate("admin-auth", { session: false }),
