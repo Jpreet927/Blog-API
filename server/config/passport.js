@@ -5,10 +5,9 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
-const SECRET = process.env.JWT_SECRET;
 const options = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: SECRET,
+    secretOrKey: process.env.JWT_SECRET,
 };
 
 passport.use(
@@ -44,35 +43,39 @@ passport.use(
 passport.use(
     "user-auth",
     new JwtStrategy(options, async (jwtPayload, done) => {
+        console.log(jwtPayload);
         try {
-            const user = await User.findOne({ id: jwtPayload.id });
-
+            const user = await User.findOne({ _id: jwtPayload.user._id });
+            console.log(user);
             if (user) {
+                console.log("passport auth: success");
                 return done(null, user);
             } else {
+                console.log("passport auth: failed");
                 return done(null, false);
             }
         } catch (error) {
+            console.log("rip");
             return done(error);
         }
     })
 );
 
-passport.use(
-    "admin-auth",
-    new JwtStrategy(options, async (jwtPayload, done) => {
-        try {
-            const user = await User.findOne({ id: jwtPayload.id });
+// passport.use(
+//     "admin-auth",
+//     new JwtStrategy(options, async (jwtPayload, done) => {
+//         try {
+//             const user = await User.findOne({ id: jwtPayload.id });
 
-            if (user.isAdmin) {
-                return done(null, user);
-            } else {
-                return done(null, false);
-            }
-        } catch (error) {
-            return done(error);
-        }
-    })
-);
+//             if (user.isAdmin) {
+//                 return done(null, user);
+//             } else {
+//                 return done(null, false);
+//             }
+//         } catch (error) {
+//             return done(error);
+//         }
+//     })
+// );
 
 module.exports = passport;

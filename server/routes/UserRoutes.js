@@ -7,6 +7,7 @@ const {
 } = require("../controllers/UserController");
 const passport = require("passport");
 const router = express.Router();
+require("../config/passport");
 
 // @desc     Register a user
 // @route    POST /api/users/register
