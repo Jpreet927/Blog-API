@@ -1,19 +1,24 @@
 const Post = require("../models/Post");
+const { getRandomImage } = require("../lib/unsplash");
 
 const createPost = async (req, res) => {
     const { author, title, content, published } = req.body;
-    const post = new Post({
-        title,
-        content,
-        author,
-        published,
-    });
 
     try {
-        await post.save();
+        const image = await getRandomImage();
+        const post = new Post({
+            title,
+            content,
+            author,
+            published,
+            image,
+        });
+
+        const newPost = await post.save();
+        console.log("finished saving post");
         return res
             .status(200)
-            .json({ message: "Successfully uploaded post", post });
+            .json({ message: "Successfully uploaded post", newPost });
     } catch (error) {
         return res.status(404).json({ message: "Could not upload post." });
     }
