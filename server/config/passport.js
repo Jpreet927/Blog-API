@@ -61,21 +61,21 @@ passport.use(
     })
 );
 
-// passport.use(
-//     "admin-auth",
-//     new JwtStrategy(options, async (jwtPayload, done) => {
-//         try {
-//             const user = await User.findOne({ id: jwtPayload.id });
+passport.use(
+    "admin-auth",
+    new JwtStrategy(options, async (jwtPayload, done) => {
+        try {
+            const user = await User.findOne({ id: jwtPayload.id });
 
-//             if (user.isAdmin) {
-//                 return done(null, user);
-//             } else {
-//                 return done(null, false);
-//             }
-//         } catch (error) {
-//             return done(error);
-//         }
-//     })
-// );
+            if (user.isAdmin) {
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
+        } catch (error) {
+            return done(error);
+        }
+    })
+);
 
 module.exports = passport;

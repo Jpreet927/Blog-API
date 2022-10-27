@@ -57,10 +57,9 @@ const getPost = async (req, res) => {
 const updatePost = async (req, res) => {
     try {
         const { title, content, author, published } = req.body;
-        await Post.findByIdAndUpdate(req.params.id, {
+        await Post.findByIdAndUpdate(req.params.postid, {
             title,
             content,
-            author,
             published,
         });
         return res.status(200).json({ message: "Successfully updated post." });
@@ -71,7 +70,7 @@ const updatePost = async (req, res) => {
 
 const deletePost = async (req, res) => {
     try {
-        await Post.findByIdAndDelete(req.params.id);
+        await Post.findByIdAndDelete(req.params.postid);
         return res.status(200).json({ message: "Successfully deleted post." });
     } catch (error) {
         return res.status(404).json({ message: "Could not delete post." });
