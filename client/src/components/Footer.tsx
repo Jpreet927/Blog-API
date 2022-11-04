@@ -16,7 +16,6 @@ const Footer = () => {
 };
 
 const Container = styled.div`
-    width: 100vw;
     padding: 4rem 6rem;
     color: white;
     display: flex;

@@ -87,7 +87,7 @@ const NavItem = styled.li`
         content: "";
         position: absolute;
         background-color: ${({ theme }) => theme.colours.bgDark};
-        height: 2px;
+        height: 1px;
         width: 0;
         left: 0;
         bottom: -10px;
