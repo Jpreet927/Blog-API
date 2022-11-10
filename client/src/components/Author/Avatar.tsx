@@ -8,7 +8,7 @@ interface AvatarProps {
 const Avatar: React.FC<AvatarProps> = ({ dimensions }) => {
     return (
         <Container dimensions={dimensions}>
-            <Image src={require("../assets/paths-eye.png")} />
+            <Image src={require("../../assets/paths-eye.png")} />
         </Container>
     );
 };

@@ -6,7 +6,7 @@ const Divider = () => {
 };
 
 const StyledDivider = styled.div`
-    height: 2px;
+    height: 1px;
     width: 100%;
     background-color: ${({ theme }) => theme.colours.bgDark};
 `;

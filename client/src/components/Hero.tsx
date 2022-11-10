@@ -4,7 +4,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import PersonIcon from "@mui/icons-material/Person";
-import Avatar from "./Avatar";
+import Avatar from "./Author/Avatar";
 
 const Hero = () => {
     return (
@@ -42,7 +42,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 75vh;
+    height: 80vh;
     background-color: ${({ theme }) => theme.colours.bgMed};
     color: ${({ theme }) => theme.colours.bgDark};
 `;
