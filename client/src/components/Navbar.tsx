@@ -1,24 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+
+interface NavItemProps {
+    route: string;
+}
 
 const Navbar = () => {
+    const location = useLocation();
+
+    useEffect(() => console.log(location.pathname.includes("/blogs/")), []);
+
     let linkStyle = {
         textDecoration: "none",
-        color: "#3F3F3F",
+        color: location.pathname.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F",
     };
 
     let activeLinkStyle = {
         textDecoration: "none",
-        color: "#3F3F3F",
+        color: location.pathname.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F",
         fontWeight: "700",
     };
 
     return (
         <Container>
-            <Title>Jaipreet Blog</Title>
+            <Title route={location.pathname}>Jaipreet Blog</Title>
             <NavList>
-                <NavItem>
+                <NavItem route={location.pathname}>
                     <NavLink
                         to="/"
                         style={({ isActive }) =>
@@ -28,7 +36,7 @@ const Navbar = () => {
                         Home
                     </NavLink>
                 </NavItem>
-                <NavItem>
+                <NavItem route={location.pathname}>
                     <NavLink
                         to="/blogs"
                         style={({ isActive }) =>
@@ -38,7 +46,7 @@ const Navbar = () => {
                         Blogs
                     </NavLink>
                 </NavItem>
-                <NavItem>
+                <NavItem route={location.pathname}>
                     <NavLink
                         to="/about"
                         style={({ isActive }) =>
@@ -49,7 +57,7 @@ const Navbar = () => {
                     </NavLink>
                 </NavItem>
             </NavList>
-            <Button>Join The Blog</Button>
+            <Button route={location.pathname}>Join The Blog</Button>
         </Container>
     );
 };
@@ -64,7 +72,8 @@ const Container = styled.div`
 
 const Title = styled.h3`
     font-size: 1.4em;
-    color: ${({ theme }) => theme.colours.paragraph};
+    color: ${(props: NavItemProps) =>
+        props.route.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F"};
 `;
 
 const NavList = styled.ul`
@@ -76,7 +85,8 @@ const NavList = styled.ul`
 const NavItem = styled.li`
     list-style: none;
     text-decoration: none;
-    color: ${({ theme }) => theme.colours.bgDark};
+    color: ${(props: NavItemProps) =>
+        props.route.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F"};
     position: relative;
 
     &:hover {
@@ -86,7 +96,8 @@ const NavItem = styled.li`
     &::after {
         content: "";
         position: absolute;
-        background-color: ${({ theme }) => theme.colours.bgDark};
+        background-color: ${(props: NavItemProps) =>
+            props.route.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F"};
         height: 1px;
         width: 0;
         left: 0;
@@ -106,8 +117,11 @@ const Button = styled.button`
     padding: 12px 24px;
     border-radius: 100px;
     border: none;
-    background-color: ${({ theme }) => theme.colours.bgDark};
-    color: ${({ theme }) => theme.colours.bgLight};
+    background-color: ${(props: NavItemProps) =>
+        props.route.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F"};
+    color: ${(props: NavItemProps) =>
+        props.route.includes("/blogs/") ? "#3F3F3F" : "#FFFFFF"};
+    font-weight: 700;
     transition: background-color 0.4s ease;
 
     &:hover {
