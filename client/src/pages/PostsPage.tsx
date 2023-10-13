@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Divider from "../components/Divider";
 import FullBlog from "../components/Posts Page/FullBlog";
+import { Post } from "../ts/types/Post";
 
 const PostsPage = () => {
-    const arr: Array<number> = [1, 2, 3, 4, 5];
+    const [posts, setPosts] = useState([]);
+    const [error, setError] = useState("");
+    const URL = process.env.API_BASE_URL;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/api/posts");
+                const data = await response.json();
+                setPosts(data.posts);
+            } catch (error) {
+                // setError(error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <Container>
@@ -13,8 +30,8 @@ const PostsPage = () => {
                 <Divider />
             </TitleWrapper>
             <PostsWrapper>
-                {arr.map((element: number, index: number) => (
-                    <FullBlog index={index} />
+                {posts.map((post: Post, index: number) => (
+                    <FullBlog post={post} index={index} />
                 ))}
             </PostsWrapper>
         </Container>

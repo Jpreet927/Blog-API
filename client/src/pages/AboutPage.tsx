@@ -59,7 +59,7 @@ const AboutPage = () => {
 };
 
 const Container = styled.div`
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,6 +73,19 @@ const ContentWrapper = styled.div`
     display: flex;
     gap: 4rem;
     width: 66%;
+
+    @media only screen and (max-width: 1200px) {
+        width: 80%;
+    }
+
+    @media only screen and (max-width: 900px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        padding: 10rem 0rem;
+    }
 `;
 
 const LeftWrapper = styled.div`
@@ -80,12 +93,25 @@ const LeftWrapper = styled.div`
     flex-direction: column;
     gap: 2rem;
     width: 34%;
+
+    @media only screen and (max-width: 900px) {
+        width: 100%;
+    }
 `;
 
 const RightWrapper = styled.div`
     width: 66%;
     column-count: 2;
     column-gap: 4rem;
+
+    @media only screen and (max-width: 900px) {
+        width: 100%;
+        column-gap: 1rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        column-count: 1;
+    }
 `;
 
 const ProfileWrapper = styled.div`

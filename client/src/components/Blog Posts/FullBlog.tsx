@@ -3,11 +3,12 @@ import styled from "styled-components";
 import Blog from "./Blog";
 import BlogDetails from "./BlogDetails";
 import CategoryTag from "../CategoryTag";
+import { Post } from "../../ts/types/Post";
 
-const FullBlog = () => {
+const FullBlog = ({ post }: { post: Post }) => {
     return (
         <Container>
-            <Blog />
+            <Blog post={post} />
             <BlogDetails />
             <TagWrapper>
                 <CategoryTag />

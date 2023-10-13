@@ -14,8 +14,10 @@ const Avatar: React.FC<AvatarProps> = ({ dimensions }) => {
 };
 
 const Container = styled.div`
-    height: ${(props: AvatarProps) => props.dimensions};
-    width: auto;
+    min-height: ${(props: AvatarProps) => props.dimensions};
+    min-width: ${(props: AvatarProps) => props.dimensions};
+    max-height: ${(props: AvatarProps) => props.dimensions};
+    max-width: ${(props: AvatarProps) => props.dimensions};
     overflow: hidden;
     border-radius: 50%;
 `;

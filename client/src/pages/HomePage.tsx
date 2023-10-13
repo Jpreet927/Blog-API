@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Hero from "../components/Hero";
 import Divider from "../components/Divider";
 import Blog from "../components/Blog Posts/Blog";
 import FullBlog from "../components/Blog Posts/FullBlog";
+import { Post } from "../ts/types/Post";
 
 const HomePage = () => {
+    const [posts, setPosts] = useState([]);
+    const URL = process.env.API_BASE_URL;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+            } catch (error) {}
+            const response = await fetch("http://localhost:5000/api/posts");
+            const data = await response.json();
+            setPosts(data.posts);
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <Container>
             <Hero />
@@ -13,38 +29,21 @@ const HomePage = () => {
                 <Title>Featured Blogs</Title>
                 <Divider />
                 <FeaturedWrapper>
-                    <FullBlog />
-                    <FullBlog />
+                    {posts.slice(0, 3).map((post) => (
+                        <FullBlog post={post} />
+                    ))}
                 </FeaturedWrapper>
             </Section>
             <Section>
-                <Title>All Blogs</Title>
+                <Title>Recent Blogs</Title>
                 <Divider />
                 <AllBlogsWrapper>
-                    <BlogWrapper>
-                        <Blog />
-                        <h2>Blog Title</h2>
-                    </BlogWrapper>
-                    <BlogWrapper>
-                        <Blog />
-                        <h2>Blog Title</h2>
-                    </BlogWrapper>
-                    <BlogWrapper>
-                        <Blog />
-                        <h2>Blog Title</h2>
-                    </BlogWrapper>
-                    <BlogWrapper>
-                        <Blog />
-                        <h2>Blog Title</h2>
-                    </BlogWrapper>
-                    <BlogWrapper>
-                        <Blog />
-                        <h2>Blog Title</h2>
-                    </BlogWrapper>
-                    <BlogWrapper>
-                        <Blog />
-                        <h2>Blog Title</h2>
-                    </BlogWrapper>
+                    {posts.map((post: Post) => (
+                        <BlogWrapper>
+                            <Blog post={post} />
+                            <h2>{post.title}</h2>
+                        </BlogWrapper>
+                    ))}
                 </AllBlogsWrapper>
             </Section>
         </Container>
@@ -62,6 +61,18 @@ const Section = styled.div`
     gap: 2em;
     color: ${({ theme }) => theme.colours.paragraph};
     padding: 4rem 20rem;
+
+    @media only screen and (max-width: 1500px) {
+        padding: 4rem 12rem;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        padding: 4rem 6rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        padding: 4rem 3rem;
+    }
 `;
 
 const Title = styled.h1`
@@ -72,6 +83,10 @@ const FeaturedWrapper = styled.div`
     display: flex;
     gap: 4rem;
     width: 100%;
+
+    @media only screen and (max-width: 750px) {
+        flex-direction: column;
+    }
 `;
 
 const AllBlogsWrapper = styled.div`
@@ -80,6 +95,10 @@ const AllBlogsWrapper = styled.div`
     width: 100%;
     gap: 2rem;
     margin-bottom: 5rem;
+
+    @media only screen and (max-width: 750px) {
+        gap: 1rem;
+    }
 `;
 
 const BlogWrapper = styled.div`
@@ -87,6 +106,10 @@ const BlogWrapper = styled.div`
     flex-direction: column;
     flex: 1 0 30%;
     gap: 0.8rem;
+
+    @media only screen and (max-width: 750px) {
+        flex: 1 0 40%;
+    }
 `;
 
 export default HomePage;

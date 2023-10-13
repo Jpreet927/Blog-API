@@ -4,23 +4,27 @@ import Blog from "../Blog Posts/Blog";
 import BlogDetailsWithAvatar from "./BlogDetailsWithAvatar";
 import AuthorTag from "../Author/AuthorTag";
 import CategoryTag from "../CategoryTag";
+import { Post } from "../../ts/types/Post";
 
-interface Props {
+type Props = {
+    post: Post;
     index: number;
-}
+};
 
-const FullBlog: React.FC<Props> = ({ index }) => {
+type ComponentProps = {
+    index: number;
+};
+
+const FullBlog = ({ post, index }: Props) => {
     return (
         <Container index={index}>
             <BlogWrapper index={index}>
-                <Blog />
+                <Blog post={post} />
             </BlogWrapper>
             <DetailsWrapper index={index}>
-                <Title>Blog Title</Title>
+                <Title>{post.title}</Title>
                 <Subtitle>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    {post.content.split(" ").slice(0, 20).join(" ") + "..."}
                 </Subtitle>
                 <AuthorTag />
                 <TagWrapper>
@@ -39,14 +43,14 @@ const Container = styled.div`
     gap: 4rem;
     height: 450px;
     padding: 4rem 20rem;
-    background-color: ${(props: Props): string => {
+    background-color: ${(props: ComponentProps): string => {
         return props.index % 2 === 1 ? "#F2F2F2" : "#FFFFFF";
     }};
 `;
 
 const BlogWrapper = styled.div`
     flex: 1 0 50%;
-    order: ${(props: Props): number => {
+    order: ${(props: ComponentProps): number => {
         return props.index % 2 === 1 ? 2 : 1;
     }};
 `;
@@ -55,7 +59,7 @@ const DetailsWrapper = styled.div`
     display: flex;
     flex: 1 0 50%;
     flex-direction: column;
-    order: ${(props: Props): number => {
+    order: ${(props: ComponentProps): number => {
         return props.index % 2 === 1 ? 1 : 2;
     }};
     color: ${({ theme }) => theme.colours.paragraph};

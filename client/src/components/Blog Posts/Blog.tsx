@@ -1,19 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { Post } from "../../ts/types/Post";
 
-const Blog = () => {
+const Blog = ({ post }: { post: Post }) => {
     return (
         <Container>
-            <Image src={require("../../assets/placeholder.jpg")} />
+            <Image src={post.image} />
         </Container>
     );
 };
 
 const Container = styled.div`
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    aspect-ratio: 5 / 3;
     overflow: hidden;
     border-radius: 50px;
     transition: transform 0.3s ease;

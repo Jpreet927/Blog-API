@@ -42,18 +42,30 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    /* height: 80vh; */
+    padding: 10rem 0rem;
     background-color: ${({ theme }) => theme.colours.bgMed};
     color: ${({ theme }) => theme.colours.bgDark};
+
+    @media only screen and (max-width: 600px) {
+        padding: 6rem 0rem;
+    }
 `;
 
 const ContentWrapper = styled.div`
-    /* height: 40%; */
-    width: 50%;
+    padding: 4rem 20rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 1.5rem;
+
+    @media only screen and (max-width: 1500px) {
+        padding: 4rem 12rem;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        padding: 4rem 8rem;
+    }
 `;
 
 const Heading = styled.div`
@@ -61,7 +73,12 @@ const Heading = styled.div`
     display: flex;
     align-items: center;
     gap: 2rem;
-    line-height: 0;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+    }
 `;
 
 const Description = styled.p`
@@ -71,6 +88,14 @@ const Description = styled.p`
 
 const Title = styled.h1`
     font-size: 64px;
+
+    @media only screen and (max-width: 900px) {
+        font-size: 48px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        font-size: 36px;
+    }
 `;
 
 const BottomWrapper = styled.div`
