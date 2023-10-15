@@ -1,23 +1,30 @@
 import React from "react";
 import styled from "styled-components";
+import DefaultAvatar from "./DefaultAvatar";
 
-interface AvatarProps {
+type Props = {
     dimensions: string;
-}
+    src?: string;
+    name: string | undefined;
+};
 
-const Avatar: React.FC<AvatarProps> = ({ dimensions }) => {
+type StyleProps = {
+    dimensions: string;
+};
+
+const Avatar = ({ dimensions, src, name }: Props) => {
     return (
         <Container dimensions={dimensions}>
-            <Image src={require("../../assets/paths-eye.png")} />
+            {src ? <Image src={src} /> : <DefaultAvatar name={name} />}
         </Container>
     );
 };
 
 const Container = styled.div`
-    min-height: ${(props: AvatarProps) => props.dimensions};
-    min-width: ${(props: AvatarProps) => props.dimensions};
-    max-height: ${(props: AvatarProps) => props.dimensions};
-    max-width: ${(props: AvatarProps) => props.dimensions};
+    min-height: ${(props: StyleProps) => props.dimensions};
+    min-width: ${(props: StyleProps) => props.dimensions};
+    max-height: ${(props: StyleProps) => props.dimensions};
+    max-width: ${(props: StyleProps) => props.dimensions};
     overflow: hidden;
     border-radius: 50%;
 `;
