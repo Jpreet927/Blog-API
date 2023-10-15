@@ -9,7 +9,7 @@ const FullBlog = ({ post }: { post: Post }) => {
     return (
         <Container>
             <Blog post={post} />
-            <BlogDetails />
+            <BlogDetails post={post} />
             <TagWrapper>
                 <CategoryTag />
                 <CategoryTag />

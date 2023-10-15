@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Avatar from "./Avatar";
+import { User } from "../../ts/types/User";
 
-const AuthorTag = () => {
+type Props = {
+    authorId: string | undefined;
+    date: string | undefined;
+};
+
+const AuthorTag = ({ authorId, date }: Props) => {
+    const [author, setAuthor] = useState<User | null>(null);
+
+    useEffect(() => {
+        const fetchAuthorData = async () => {
+            if (authorId) {
+                const response = await fetch(
+                    `http://localhost:5000/api/users/${authorId}`
+                );
+                const data = await response.json();
+
+                setAuthor(data.user);
+            }
+        };
+
+        if (authorId) fetchAuthorData();
+    }, [authorId]);
+
     return (
         <Container>
-            <Avatar dimensions="50px" />
+            <Avatar
+                dimensions="50px"
+                src={author?.avatar}
+                name={author?.username}
+            />
             <TextWrapper>
-                <Name>Jaipreet Singh</Name>
-                <Date>August 24th, 2022</Date>
+                <Name>{author?.username}</Name>
+                <Date>{date}</Date>
             </TextWrapper>
         </Container>
     );

@@ -5,6 +5,7 @@ import Divider from "../components/Divider";
 import Blog from "../components/Blog Posts/Blog";
 import FullBlog from "../components/Blog Posts/FullBlog";
 import { Post } from "../ts/types/Post";
+import { NavLink, useLocation } from "react-router-dom";
 
 const HomePage = () => {
     const [posts, setPosts] = useState([]);
@@ -13,10 +14,10 @@ const HomePage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const response = await fetch("http://localhost:5000/api/posts");
+                const data = await response.json();
+                setPosts(data.posts);
             } catch (error) {}
-            const response = await fetch("http://localhost:5000/api/posts");
-            const data = await response.json();
-            setPosts(data.posts);
         };
 
         fetchData();
@@ -29,8 +30,16 @@ const HomePage = () => {
                 <Title>Featured Blogs</Title>
                 <Divider />
                 <FeaturedWrapper>
-                    {posts.slice(0, 3).map((post) => (
-                        <FullBlog post={post} />
+                    {posts.slice(0, 3).map((post: Post) => (
+                        <FeaturedBlogWrapper>
+                            <NavLink
+                                to={`/blogs/${post._id}`}
+                                style={{ textDecoration: "none" }}
+                                target="_blank"
+                            >
+                                <FullBlog post={post} />
+                            </NavLink>
+                        </FeaturedBlogWrapper>
                     ))}
                 </FeaturedWrapper>
             </Section>
@@ -40,8 +49,14 @@ const HomePage = () => {
                 <AllBlogsWrapper>
                     {posts.map((post: Post) => (
                         <BlogWrapper>
-                            <Blog post={post} />
-                            <h2>{post.title}</h2>
+                            <NavLink
+                                to={`/blogs/${post._id}`}
+                                style={{ textDecoration: "none" }}
+                                target="_blank"
+                            >
+                                <Blog post={post} />
+                                <h2>{post.title}</h2>
+                            </NavLink>
                         </BlogWrapper>
                     ))}
                 </AllBlogsWrapper>
@@ -110,6 +125,10 @@ const BlogWrapper = styled.div`
     @media only screen and (max-width: 750px) {
         flex: 1 0 40%;
     }
+`;
+
+const FeaturedBlogWrapper = styled.div`
+    width: 50%;
 `;
 
 export default HomePage;

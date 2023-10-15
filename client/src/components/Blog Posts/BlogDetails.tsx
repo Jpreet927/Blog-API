@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { Post } from "../../ts/types/Post";
 
-const BlogDetails = () => {
+const BlogDetails = ({ post }: { post: Post }) => {
     return (
         <Container>
-            <Title>Blog Title</Title>
+            <Title>{post.title}</Title>
             <Subtitle>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+                {post.content.split(" ").slice(0, 20).join(" ") + "..."}
             </Subtitle>
         </Container>
     );

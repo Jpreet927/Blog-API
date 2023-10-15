@@ -11,7 +11,7 @@ const Hero = () => {
         <Container>
             <ContentWrapper>
                 <Heading>
-                    <Avatar dimensions="125px" />
+                    {/* <Avatar dimensions="125px" /> */}
                     <Title>Jaipreet Singh Blog</Title>
                 </Heading>
                 <Description>

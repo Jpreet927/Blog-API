@@ -13,7 +13,7 @@ const AboutPage = () => {
             <ContentWrapper>
                 <LeftWrapper>
                     <ProfileWrapper>
-                        <Avatar dimensions="60px" />
+                        {/* <Avatar dimensions="60px" /> */}
                         <Title>Jaipreet Singh</Title>
                     </ProfileWrapper>
                     <Subtext>

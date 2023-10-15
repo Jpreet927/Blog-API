@@ -26,7 +26,7 @@ const FullBlog = ({ post, index }: Props) => {
                 <Subtitle>
                     {post.content.split(" ").slice(0, 20).join(" ") + "..."}
                 </Subtitle>
-                <AuthorTag />
+                <AuthorTag authorId={post?.author} date={post?.datetime} />
                 <TagWrapper>
                     <CategoryTag />
                     <CategoryTag />

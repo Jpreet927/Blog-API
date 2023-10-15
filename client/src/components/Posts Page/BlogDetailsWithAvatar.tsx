@@ -11,7 +11,7 @@ const BlogDetailsWithAvatar = () => {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
             </Subtitle>
-            <AuthorTag />
+            <AuthorTag authorId={undefined} date={undefined} />
         </Container>
     );
 };

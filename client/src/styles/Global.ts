@@ -9,6 +9,10 @@ const GlobalStyles = createGlobalStyle`
         padding: 0;
         font-family: "Playfair Display", serif;
     }
+
+    a {
+        color: #3F3F3F;
+    }
 `;
 
 export default GlobalStyles;
