@@ -151,8 +151,23 @@ const loginUser = [
     },
 ];
 
-const getUserProfile = (req, res) => {
+const getCurrentUserProfile = (req, res) => {
     return res.status(200).json("User Profile Page");
+};
+
+const getUserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userid);
+        console.log(req.params.userid);
+
+        if (!user) {
+            return res.status(404).json({ message: "Could not find user." });
+        }
+
+        return res.status(200).json({ user });
+    } catch (error) {
+        return res.status(404).json({ message: "Could not find user." });
+    }
 };
 
 const setAuthorRequest = async (req, res) => {
@@ -176,4 +191,10 @@ const setAuthorRequest = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, getUserProfile, setAuthorRequest };
+module.exports = {
+    registerUser,
+    loginUser,
+    getCurrentUserProfile,
+    getUserProfile,
+    setAuthorRequest,
+};

@@ -2,6 +2,7 @@ const express = require("express");
 const {
     registerUser,
     loginUser,
+    getCurrentUserProfile,
     getUserProfile,
     setAuthorRequest,
 } = require("../controllers/UserController");
@@ -19,13 +20,18 @@ router.post("/register", registerUser);
 // @access   Public
 router.post("/login", loginUser);
 
-// @desc     Fetch a users profile info
+// @desc     Fetch a users data
+// @route    POST /api/users/:userid
+// @access   Public
+router.get("/:userid", getUserProfile);
+
+// @desc     Fetch the current logged in users data
 // @route    POST /api/users/profile
 // @access   Private
 router.get(
     "/profile",
     passport.authenticate("user-auth", { session: false }),
-    getUserProfile
+    getCurrentUserProfile
 );
 
 // @desc     Change a users permissions to "Author"

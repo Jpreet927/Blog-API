@@ -23,7 +23,7 @@ const commentRoutes = require("./routes/CommentRoutes");
 app.get("/", (req, res) => {
     res.status(200).send("Home page");
 });
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/post/:postid/comments", commentRoutes);
 
