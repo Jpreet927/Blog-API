@@ -35,7 +35,6 @@ const HomePage = () => {
                             <NavLink
                                 to={`/blogs/${post._id}`}
                                 style={{ textDecoration: "none" }}
-                                target="_blank"
                             >
                                 <FullBlog post={post} />
                             </NavLink>
@@ -52,7 +51,6 @@ const HomePage = () => {
                             <NavLink
                                 to={`/blogs/${post._id}`}
                                 style={{ textDecoration: "none" }}
-                                target="_blank"
                             >
                                 <Blog post={post} />
                                 <h2>{post.title}</h2>

@@ -62,6 +62,9 @@ const BlogPostPage = () => {
                     </Paragraph>
                     <ImageContainer>
                         <Image src={post?.image} />
+                        <Link href={post?.image} target="_blank">
+                            {post?.image}
+                        </Link>
                     </ImageContainer>
                     <Paragraph>
                         {post?.content
@@ -154,6 +157,10 @@ const Subtitle = styled.p`
     line-height: 1.5em;
     font-style: italic;
     color: ${({ theme }) => theme.colours.subtext};
+`;
+
+const Link = styled.a`
+    font-size: 12px;
 `;
 
 const BodyWrapper = styled.div`

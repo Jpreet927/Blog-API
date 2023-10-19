@@ -8,6 +8,7 @@ import AboutPage from "./pages/AboutPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import GlobalStyles from "./styles/Global";
+import AuthorPage from "./pages/AuthorPage";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/blogs" element={<PostsPage />} />
                     <Route path="/blogs/:blogid" element={<BlogPostPage />} />
                     <Route path="/about" element={<AboutPage />} />
+                    <Route path="/author/:authorid" element={<AuthorPage />} />
                 </Routes>
                 <FooterContainer>
                     <Footer />

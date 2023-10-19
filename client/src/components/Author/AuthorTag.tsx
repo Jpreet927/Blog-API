@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Avatar from "./Avatar";
 import { User } from "../../ts/types/User";
 import Moment from "react-moment";
+import { NavLink } from "react-router-dom";
 
 type Props = {
     authorId: string | undefined;
@@ -29,11 +30,16 @@ const AuthorTag = ({ authorId, date }: Props) => {
 
     return (
         <Container>
-            <Avatar
-                dimensions="50px"
-                src={author?.avatar}
-                name={author?.username}
-            />
+            <NavLink
+                to={`/author/${authorId}`}
+                style={{ textDecoration: "none" }}
+            >
+                <Avatar
+                    dimensions="50px"
+                    src={author?.avatar}
+                    name={author?.username}
+                />
+            </NavLink>
             <TextWrapper>
                 <Name>{author?.username}</Name>
                 <Moment format="MMMM Do, YYYY">{date}</Moment>
@@ -55,10 +61,6 @@ const TextWrapper = styled.div`
 
 const Name = styled.p`
     color: ${({ theme }) => theme.colours.paragraph};
-`;
-
-const Date = styled.p`
-    color: ${({ theme }) => theme.colours.subtext};
 `;
 
 export default AuthorTag;
