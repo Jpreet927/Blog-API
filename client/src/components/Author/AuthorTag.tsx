@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Avatar from "./Avatar";
 import { User } from "../../ts/types/User";
+import Moment from "react-moment";
 
 type Props = {
     authorId: string | undefined;
@@ -35,7 +36,7 @@ const AuthorTag = ({ authorId, date }: Props) => {
             />
             <TextWrapper>
                 <Name>{author?.username}</Name>
-                <Date>{date}</Date>
+                <Moment format="MMMM Do, YYYY">{date}</Moment>
             </TextWrapper>
         </Container>
     );
