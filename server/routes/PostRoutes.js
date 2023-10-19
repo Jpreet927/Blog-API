@@ -9,6 +9,7 @@ const {
     deletePost,
     publishPost,
     unpublishPost,
+    getPostByAuthor,
 } = require("../controllers/PostController");
 
 // @desc     Create a post
@@ -29,6 +30,11 @@ router.get("/", getAllPosts);
 // @route    GET /api/posts/:postid
 // @access   Public
 router.get("/:postid", getPost);
+
+// @desc     Get all posts by author
+// @route    GET /api/posts/author/:authorid
+// @access   Public
+router.get("/author/:authorid", getPostByAuthor);
 
 // @desc     Update a post
 // @route    PUT /api/posts/:postid

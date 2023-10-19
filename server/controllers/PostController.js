@@ -55,6 +55,29 @@ const getPost = async (req, res) => {
     }
 };
 
+const getPostByAuthor = async (req, res) => {
+    try {
+        const posts = await Post.find({ author: req.params.authorid });
+        console.log(posts);
+
+        if (!posts) {
+            return res.status(404).json({
+                message: "Error: Could not retrieve posts by this author.",
+            });
+        }
+
+        return res
+            .status(200)
+            .json({ message: "Retrieved authors posts.", posts });
+    } catch (error) {
+        return res
+            .status(404)
+            .json({
+                message: "Error: Could not retrieve posts by this author.",
+            });
+    }
+};
+
 const updatePost = async (req, res) => {
     try {
         const { title, content, author, published } = req.body;
@@ -86,6 +109,7 @@ module.exports = {
     createPost,
     getAllPosts,
     getPost,
+    getPostByAuthor,
     updatePost,
     deletePost,
     publishPost,
