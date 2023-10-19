@@ -126,7 +126,8 @@ const Button = styled.button`
 
     &:hover {
         cursor: pointer;
-        background-color: black;
+        background-color: ${(props: NavItemProps) =>
+            props.route.includes("/blogs/") ? "#e5e5e5" : "black"};
     }
 `;
 
