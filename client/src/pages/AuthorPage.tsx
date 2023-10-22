@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import styled from "styled-components";
 import { User } from "../ts/types/User";
 import { Post } from "../ts/types/Post";
+import Divider from "../components/Divider";
+import Blog from "../components/Blog Posts/Blog";
+import FullBlog from "../components/Blog Posts/FullBlog";
+import Avatar from "../components/Author/Avatar";
 
 const AuthorPage = () => {
     const { authorid } = useParams();
@@ -38,7 +43,101 @@ const AuthorPage = () => {
         if (authorid) fetchAuthorPosts();
     }, [authorid]);
 
-    return <div>AuthorPage</div>;
+    return (
+        <Container>
+            <Banner $bgimage={posts ? posts[0].image : ""}>
+                <AuthorDataContainer>
+                    <Avatar dimensions="100px" name={author?.username} />
+                    <Title>{author?.username}</Title>
+                </AuthorDataContainer>
+            </Banner>
+            <Section>
+                <Title>{`${author?.username}'s Blogs`}</Title>
+                <Divider />
+                <AllBlogsWrapper>
+                    {posts?.map((post: Post) => (
+                        <BlogWrapper>
+                            <NavLink
+                                to={`/blogs/${post._id}`}
+                                style={{ textDecoration: "none" }}
+                            >
+                                <FullBlog post={post} />
+                            </NavLink>
+                        </BlogWrapper>
+                    ))}
+                </AllBlogsWrapper>
+            </Section>
+        </Container>
+    );
 };
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const Section = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    color: ${({ theme }) => theme.colours.paragraph};
+    padding: 4rem 20rem;
+
+    @media only screen and (max-width: 1500px) {
+        padding: 4rem 12rem;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        padding: 4rem 6rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        padding: 4rem 3rem;
+    }
+`;
+
+const Banner = styled.div<{ $bgimage?: string }>`
+    background-color: #dadada;
+    height: 40vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    background-image: ${(props) => props.$bgimage};
+`;
+
+const AuthorDataContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 24px;
+`;
+
+const Title = styled.h1`
+    font-size: 42px;
+`;
+
+const AllBlogsWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 2rem;
+    margin-bottom: 5rem;
+
+    @media only screen and (max-width: 750px) {
+        gap: 1rem;
+    }
+`;
+
+const BlogWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 30%;
+    gap: 0.8rem;
+
+    @media only screen and (max-width: 750px) {
+        flex: 1 0 40%;
+    }
+`;
 
 export default AuthorPage;
