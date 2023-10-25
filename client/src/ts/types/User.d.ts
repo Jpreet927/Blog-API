@@ -5,7 +5,7 @@ export type User = {
     username: string;
     avatar?: string;
     email: string;
-    password: string;
+    password?: string;
     isAuthor: boolean;
     isAdmin: boolean;
     posts: Post[];
