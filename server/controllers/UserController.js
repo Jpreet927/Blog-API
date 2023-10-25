@@ -113,7 +113,6 @@ const loginUser = [
             { session: false },
             (err, user, info) => {
                 if (err) return next(err);
-                console.log(info);
 
                 if (!user) {
                     return res.status(400).json({
@@ -139,6 +138,8 @@ const loginUser = [
                 const token = jwt.sign({ user: body }, process.env.JWT_SECRET, {
                     expiresIn: "30d",
                 });
+
+                user.password = undefined;
 
                 return res.status(200).json({
                     token,
