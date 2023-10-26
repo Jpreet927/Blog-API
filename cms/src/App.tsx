@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import UserProvider from "./context/AuthContext";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
@@ -7,10 +6,12 @@ import PostPage from "./pages/PostPage";
 import ApplicationsPage from "./pages/ApplicationsPage";
 import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./components/Utils/PrivateRoute";
+import GlobalStyles from "./styles/Global";
 
 function App() {
     return (
         <UserProvider>
+            <GlobalStyles />
             <div className="App">
                 <Routes>
                     <Route
