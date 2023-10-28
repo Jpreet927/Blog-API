@@ -7,11 +7,14 @@ type LoginForm = {
     password: string;
 };
 
-const LoginForm = () => {
+type Props = {
+    setLogin: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const LoginForm = ({ setLogin }: Props) => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm<LoginForm>();
 
@@ -23,7 +26,7 @@ const LoginForm = () => {
         <Form onSubmit={handleSubmit(submitForm)}>
             <h1>Login</h1>
             <InputContainer>
-                <label htmlFor="email">Username</label>
+                <label htmlFor="email">Email</label>
                 <Input
                     type="text"
                     placeholder={"Email"}
@@ -45,11 +48,15 @@ const LoginForm = () => {
                 )}
             </InputContainer>
             <Button type="submit">Login</Button>
+            <Subtitle>
+                Don't have an account?{" "}
+                <Strong onClick={() => setLogin(false)}>Sign Up</Strong>
+            </Subtitle>
         </Form>
     );
 };
 
-const Form = styled.form`
+export const Form = styled.form`
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -60,14 +67,14 @@ const Form = styled.form`
     border-radius: 1rem;
 `;
 
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
     gap: 0.5rem;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
     border: none;
     padding: 12px 24px;
     width: 100%;
@@ -76,7 +83,7 @@ const Input = styled.input`
     border-radius: 100px;
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,10 +101,37 @@ const Button = styled.button`
     }
 `;
 
-const Error = styled.p`
+export const Error = styled.p`
     color: red;
     font-family: "Inter", sans-serif;
     font-size: 12px;
+`;
+
+export const Subtitle = styled.p`
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+`;
+
+export const Strong = styled.strong`
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        background-color: #3f3f3f;
+        height: 1px;
+        width: 0;
+        left: 0;
+        bottom: -5px;
+        transition: 0.4s ease;
+    }
+
+    &:hover::after {
+        width: 100%;
+    }
 `;
 
 export default LoginForm;

@@ -10,7 +10,11 @@ const LoginPage = () => {
 
     return (
         <Container>
-            {loginOrRegister ? <LoginForm /> : <RegisterForm />}
+            {loginOrRegister ? (
+                <LoginForm setLogin={setLoginOrRegister} />
+            ) : (
+                <RegisterForm setRegister={setLoginOrRegister} />
+            )}
         </Container>
     );
 };
