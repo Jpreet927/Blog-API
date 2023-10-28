@@ -5,6 +5,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import PersonIcon from "@mui/icons-material/Person";
 import Avatar from "./Author/Avatar";
+import bgImage from "../assets/bg.jpg";
 
 const Hero = () => {
     return (
@@ -42,8 +43,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 80vh; */
-    padding: 10rem 0rem;
+    height: 70vh;
     background-color: ${({ theme }) => theme.colours.bgMed};
     color: ${({ theme }) => theme.colours.bgDark};
 
@@ -54,10 +54,14 @@ const Container = styled.div`
 
 const ContentWrapper = styled.div`
     padding: 4rem 20rem;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     gap: 1.5rem;
+    background-image: url(${bgImage});
+    background-size: cover;
+    background-position: center;
 
     @media only screen and (max-width: 1500px) {
         padding: 4rem 12rem;
