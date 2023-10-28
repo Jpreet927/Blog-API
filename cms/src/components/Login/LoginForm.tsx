@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { UserContext } from "../../context/AuthContext";
 
 type LoginForm = {
     email: string;
@@ -9,17 +11,38 @@ type LoginForm = {
 
 type Props = {
     setLogin: React.Dispatch<React.SetStateAction<boolean>>;
+    notify: (message: string) => void;
 };
 
-const LoginForm = ({ setLogin }: Props) => {
+const LoginForm = ({ setLogin, notify }: Props) => {
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<LoginForm>();
+    const [loginError, setLoginError] = useState("");
+    const { setUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
-    const submitForm: SubmitHandler<LoginForm> = (data) => {
-        console.log(data);
+    const submitForm: SubmitHandler<LoginForm> = async (data) => {
+        try {
+            const response = await fetch(
+                "http://localhost:5000/api/users/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
+            const responseData = await response.json();
+            setUser(responseData.user);
+            notify("Successfully logged in!");
+            navigate("/");
+        } catch (error: any) {
+            setLoginError(error.message);
+        }
     };
 
     return (
@@ -48,6 +71,7 @@ const LoginForm = ({ setLogin }: Props) => {
                 )}
             </InputContainer>
             <Button type="submit">Login</Button>
+            {loginError && <Error>{loginError}</Error>}
             <Subtitle>
                 Don't have an account?{" "}
                 <Strong onClick={() => setLogin(false)}>Sign Up</Strong>

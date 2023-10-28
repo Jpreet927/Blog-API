@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
     Button,
@@ -9,19 +9,22 @@ import {
     Strong,
     Subtitle,
 } from "./LoginForm";
+import { UserContext } from "../../context/AuthContext";
 
 type RegisterForm = {
     username: string;
     email: string;
     password: string;
-    confirmPassword: string;
+    "confirm-password": string;
 };
 
 type Props = {
     setRegister: React.Dispatch<React.SetStateAction<boolean>>;
+    notify: (message: string) => void;
 };
 
-const RegisterForm = ({ setRegister }: Props) => {
+const RegisterForm = ({ setRegister, notify }: Props) => {
+    const [registerError, setRegisterError] = useState("");
     const {
         register,
         handleSubmit,
@@ -29,13 +32,28 @@ const RegisterForm = ({ setRegister }: Props) => {
     } = useForm<RegisterForm>();
 
     const passwordConfirmed = (password: string, confirm: string) => {
-        console.log(errors.confirmPassword);
         return password === confirm;
     };
 
-    const submitForm: SubmitHandler<RegisterForm> = (data) => {
-        console.log(errors.confirmPassword);
+    const submitForm: SubmitHandler<RegisterForm> = async (data) => {
         console.log(data);
+        try {
+            const response = await fetch(
+                "http://localhost:5000/api/users/register",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
+            const responseData = await response.json();
+            notify("Successfully registered!");
+            setRegister(true);
+        } catch (error: any) {
+            setRegisterError(error.message);
+        }
     };
 
     return (
@@ -73,7 +91,7 @@ const RegisterForm = ({ setRegister }: Props) => {
                         validate: (value, formValues) =>
                             passwordConfirmed(
                                 value,
-                                formValues.confirmPassword
+                                formValues["confirm-password"]
                             ),
                     })}
                 />
@@ -82,24 +100,25 @@ const RegisterForm = ({ setRegister }: Props) => {
                 )}
             </InputContainer>
             <InputContainer>
-                <label htmlFor="password">Confirm Password</label>
+                <label htmlFor="confirm-password">Confirm Password</label>
                 <Input
                     type="password"
-                    placeholder={"Password"}
-                    {...register("confirmPassword", {
+                    placeholder={"Confirm Password"}
+                    {...register("confirm-password", {
                         required: true,
                         validate: (value, formValues) =>
                             passwordConfirmed(value, formValues.password),
                     })}
                 />
-                {errors.confirmPassword?.type === "required" && (
+                {errors["confirm-password"]?.type === "required" && (
                     <Error>Confirm password is required.</Error>
                 )}
-                {errors.confirmPassword?.type === "validate" && (
+                {errors["confirm-password"]?.type === "validate" && (
                     <Error>Passwords are not the same.</Error>
                 )}
             </InputContainer>
             <Button type="submit">Register</Button>
+            {registerError && <Error>{registerError}</Error>}
             <Subtitle>
                 Already have an account?{" "}
                 <Strong onClick={() => setRegister(true)}>Login.</Strong>
