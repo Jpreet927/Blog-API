@@ -38,6 +38,7 @@ const LoginForm = ({ setLogin, notify }: Props) => {
             );
             const responseData = await response.json();
             setUser(responseData.user);
+            console.log(responseData.user);
             notify("Successfully logged in!");
             navigate("/");
         } catch (error: any) {

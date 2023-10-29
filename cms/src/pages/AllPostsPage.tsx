@@ -1,14 +1,14 @@
 import React, { useEffect, useContext } from "react";
 import { UserContext } from "../context/AuthContext";
 
-const PostPage = () => {
+const AllPostsPage = () => {
     const { user } = useContext(UserContext);
 
     useEffect(() => {
-        console.log("Post page");
         console.log(user);
-    });
-    return <div>PostPage</div>;
+    }, [user]);
+
+    return <div>AllPostsPage</div>;
 };
 
-export default PostPage;
+export default AllPostsPage;
