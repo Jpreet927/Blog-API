@@ -20,7 +20,9 @@ const createPost = async (req, res) => {
             .status(200)
             .json({ message: "Successfully uploaded post", newPost });
     } catch (error) {
-        return res.status(404).json({ message: "Could not upload post." });
+        return res
+            .status(404)
+            .json({ message: "Could not upload post.", error });
     }
 };
 
@@ -70,11 +72,9 @@ const getPostByAuthor = async (req, res) => {
             .status(200)
             .json({ message: "Retrieved authors posts.", posts });
     } catch (error) {
-        return res
-            .status(404)
-            .json({
-                message: "Error: Could not retrieve posts by this author.",
-            });
+        return res.status(404).json({
+            message: "Error: Could not retrieve posts by this author.",
+        });
     }
 };
 

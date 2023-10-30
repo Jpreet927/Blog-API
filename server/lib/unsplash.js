@@ -1,5 +1,6 @@
 const axios = require("axios");
-const ACCESS_KEY = process.env.UNSPLASH_API_ACCESS_KEY;
+require("dotenv").config();
+const ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 const BASE_URL = "https://api.unsplash.com";
 
 // GET random image
