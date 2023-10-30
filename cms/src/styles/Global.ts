@@ -11,8 +11,12 @@ const GlobalStyles = createGlobalStyle`
         font-family: "Playfair Display", serif;
     }
 
-    a {
+    h1, h2, h3, h4, h5, h6, p, a {
         color: #3F3F3F;
+    }
+
+    fieldset {
+        border: 0 none;
     }
 `;
 
