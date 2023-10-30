@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
+import CreateBlogForm from "./Blogs/CreateBlogForm";
 
 interface NavItemProps {
     route: string;
@@ -8,6 +9,7 @@ interface NavItemProps {
 
 const Navbar = () => {
     const location = useLocation();
+    const [createBlogFormVisible, setCreateBlogFormVisible] = useState(false);
 
     let linkStyle = {
         textDecoration: "none",
@@ -21,42 +23,56 @@ const Navbar = () => {
     };
 
     return (
-        <Container>
-            <Title route={location.pathname}>Jaipreet Blog</Title>
-            <NavList>
-                <NavItem route={location.pathname}>
-                    <NavLink
-                        to="/"
-                        style={({ isActive }) =>
-                            isActive ? activeLinkStyle : linkStyle
-                        }
-                    >
-                        Dashboard
-                    </NavLink>
-                </NavItem>
-                <NavItem route={location.pathname}>
-                    <NavLink
-                        to="/test"
-                        style={({ isActive }) =>
-                            isActive ? activeLinkStyle : linkStyle
-                        }
-                    >
-                        Blogs
-                    </NavLink>
-                </NavItem>
-                <NavItem route={location.pathname}>
-                    <NavLink
-                        to="/about"
-                        style={({ isActive }) =>
-                            isActive ? activeLinkStyle : linkStyle
-                        }
-                    >
-                        About
-                    </NavLink>
-                </NavItem>
-            </NavList>
-            <Button route={location.pathname}>Create a New Blog</Button>
-        </Container>
+        <>
+            <Container>
+                <Title route={location.pathname}>Jaipreet Blog</Title>
+                <NavList>
+                    <NavItem route={location.pathname}>
+                        <NavLink
+                            to="/"
+                            style={({ isActive }) =>
+                                isActive ? activeLinkStyle : linkStyle
+                            }
+                        >
+                            Dashboard
+                        </NavLink>
+                    </NavItem>
+                    <NavItem route={location.pathname}>
+                        <NavLink
+                            to="/test"
+                            style={({ isActive }) =>
+                                isActive ? activeLinkStyle : linkStyle
+                            }
+                        >
+                            Blogs
+                        </NavLink>
+                    </NavItem>
+                    <NavItem route={location.pathname}>
+                        <NavLink
+                            to="/about"
+                            style={({ isActive }) =>
+                                isActive ? activeLinkStyle : linkStyle
+                            }
+                        >
+                            About
+                        </NavLink>
+                    </NavItem>
+                </NavList>
+                <Button
+                    route={location.pathname}
+                    onClick={() => setCreateBlogFormVisible(true)}
+                >
+                    Create a New Blog
+                </Button>
+            </Container>
+            {createBlogFormVisible && (
+                <FormContainer>
+                    <CreateBlogForm
+                        setCreateBlogFormVisible={setCreateBlogFormVisible}
+                    />
+                </FormContainer>
+            )}
+        </>
     );
 };
 
@@ -66,6 +82,20 @@ const Container = styled.div`
     align-items: center;
     width: 100vw;
     padding: 2rem 6rem;
+    position: relative;
+    z-index: 998;
+`;
+
+const FormContainer = styled.div`
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(40px);
+    justify-content: center;
+    align-items: center;
 `;
 
 const Title = styled.h3`
@@ -108,7 +138,7 @@ const NavItem = styled.li`
     }
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;

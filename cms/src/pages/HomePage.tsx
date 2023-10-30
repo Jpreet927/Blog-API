@@ -44,7 +44,7 @@ const HomePage = () => {
                                 to={`/blogs/${post._id}`}
                                 style={{ textDecoration: "none" }}
                             >
-                                <FullBlog post={post} index={index} />
+                                <FullBlog post={post} />
                             </NavLink>
                         </BlogWrapper>
                     ))}
