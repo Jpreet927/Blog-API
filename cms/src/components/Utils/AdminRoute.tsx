@@ -5,10 +5,6 @@ import { UserContext } from "../../context/AuthContext";
 const AdminRoute = ({ children }: { children: ReactNode }) => {
     const { user } = useContext(UserContext);
 
-    useEffect(() => {
-        console.log(user?.isAdmin);
-    }, [user]);
-
     if (!user || !user.isAdmin) {
         return <Navigate to="/" />;
     }

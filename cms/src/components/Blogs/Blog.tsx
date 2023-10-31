@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { Post } from "../../ts/types/Post";
+import { NavLink } from "react-router-dom";
 
 const Blog = ({ post }: { post: Post }) => {
     return (
-        <Container>
-            <Image src={post.image} />
-        </Container>
+        <NavLink to={`/post/${post._id}`} style={{ textDecoration: "none" }}>
+            <Container>
+                <Image src={post.image} />
+            </Container>
+        </NavLink>
     );
 };
 

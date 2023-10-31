@@ -40,12 +40,7 @@ const HomePage = () => {
                 <AllBlogsWrapper>
                     {posts?.map((post: Post, index: number) => (
                         <BlogWrapper>
-                            <NavLink
-                                to={`/blogs/${post._id}`}
-                                style={{ textDecoration: "none" }}
-                            >
-                                <FullBlog post={post} />
-                            </NavLink>
+                            <FullBlog post={post} />
                         </BlogWrapper>
                     ))}
                 </AllBlogsWrapper>
