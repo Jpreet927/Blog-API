@@ -2,12 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { Post } from "../../ts/types/Post";
 
-const BlogDetails = ({ post }: { post: Post }) => {
+type Props = {
+    post: Post;
+    setEditBlogFormVisible: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const BlogDetails = ({ post, setEditBlogFormVisible }: Props) => {
     return (
         <Container>
             <TitleContainer>
                 <Title>{post.title}</Title>
-                <Button>Edit</Button>
+                <Button onClick={() => setEditBlogFormVisible(true)}>
+                    Edit
+                </Button>
             </TitleContainer>
             <Subtitle>
                 {post.content.split(" ").slice(0, 20).join(" ") + "..."}

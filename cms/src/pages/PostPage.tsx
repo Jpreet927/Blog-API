@@ -9,10 +9,13 @@ import AuthorTag from "../components/Author/AuthorTag";
 import { useParams } from "react-router-dom";
 import { Post } from "../ts/types/Post";
 import VerticalDivider from "../components/VerticalDivider";
+import FormContainer from "../components/Blogs/FormContainer";
+import EditBlogForm from "../components/Blogs/EditBlogForm";
 
 const PostPage = () => {
     const { postid } = useParams();
     const [post, setPost] = useState<Post | null>(null);
+    const [editBlogFormVisible, setEditBlogFormVisible] = useState(false);
 
     useEffect(() => {
         const fetchPostData = async () => {
@@ -28,70 +31,91 @@ const PostPage = () => {
     }, []);
 
     return (
-        <Container>
-            <BannerContainer>
-                <Vignette />
-                <Image src={post?.image} />
-            </BannerContainer>
-            <ContentWrapper>
-                <HeadingWrapper>
+        <>
+            <Container>
+                <BannerContainer>
+                    <Vignette />
+                    <Image src={post?.image} />
+                </BannerContainer>
+                <ContentWrapper>
+                    <HeadingWrapper>
+                        <TitleWrapper>
+                            <RowContainer>
+                                <Title>{post?.title}</Title>
+                                <VerticalDivider />
+                                <Button
+                                    onClick={() => setEditBlogFormVisible(true)}
+                                >
+                                    Edit
+                                </Button>
+                            </RowContainer>
+                            <AuthorTag
+                                authorId={post?.author}
+                                date={post?.datetime}
+                            />
+                        </TitleWrapper>
+                        <Subtitle>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation.
+                        </Subtitle>
+                        <Divider />
+                    </HeadingWrapper>
+                    <BodyWrapper>
+                        <Paragraph>
+                            {post?.content
+                                .split(".")
+                                .slice(
+                                    0,
+                                    Math.floor(
+                                        post.content.split(".").length / 3
+                                    )
+                                )
+                                .join(".")}
+                            .
+                        </Paragraph>
+                        <ImageContainer>
+                            <Image src={post?.image} />
+                            <Link href={post?.image} target="_blank">
+                                {post?.image}
+                            </Link>
+                        </ImageContainer>
+                        <Paragraph>
+                            {post?.content
+                                .split(".")
+                                .slice(
+                                    Math.floor(
+                                        post.content.split(".").length / 3
+                                    )
+                                )
+                                .join(".")}
+                        </Paragraph>
+                        <Divider />
+                    </BodyWrapper>
                     <TitleWrapper>
-                        <RowContainer>
-                            <Title>{post?.title}</Title>
-                            <VerticalDivider />
-                            <Button>Edit</Button>
-                        </RowContainer>
                         <AuthorTag
                             authorId={post?.author}
                             date={post?.datetime}
                         />
+                        <LinksWrapper>
+                            <TwitterIcon />
+                            <LinkedInIcon />
+                            <GitHubIcon />
+                            <PersonIcon />
+                        </LinksWrapper>
                     </TitleWrapper>
-                    <Subtitle>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation.
-                    </Subtitle>
-                    <Divider />
-                </HeadingWrapper>
-                <BodyWrapper>
-                    <Paragraph>
-                        {post?.content
-                            .split(".")
-                            .slice(
-                                0,
-                                Math.floor(post.content.split(".").length / 3)
-                            )
-                            .join(".")}
-                        .
-                    </Paragraph>
-                    <ImageContainer>
-                        <Image src={post?.image} />
-                        <Link href={post?.image} target="_blank">
-                            {post?.image}
-                        </Link>
-                    </ImageContainer>
-                    <Paragraph>
-                        {post?.content
-                            .split(".")
-                            .slice(
-                                Math.floor(post.content.split(".").length / 3)
-                            )
-                            .join(".")}
-                    </Paragraph>
-                    <Divider />
-                </BodyWrapper>
-                <TitleWrapper>
-                    <AuthorTag authorId={post?.author} date={post?.datetime} />
-                    <LinksWrapper>
-                        <TwitterIcon />
-                        <LinkedInIcon />
-                        <GitHubIcon />
-                        <PersonIcon />
-                    </LinksWrapper>
-                </TitleWrapper>
-            </ContentWrapper>
-        </Container>
+                </ContentWrapper>
+            </Container>
+            {editBlogFormVisible && (
+                <FormContainer>
+                    <EditBlogForm
+                        setEditBlogFormVisible={setEditBlogFormVisible}
+                        blogDetails={post!}
+                    />
+                </FormContainer>
+            )}
+        </>
     );
 };
 
