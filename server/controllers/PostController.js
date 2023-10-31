@@ -80,11 +80,12 @@ const getPostByAuthor = async (req, res) => {
 
 const updatePost = async (req, res) => {
     try {
-        const { title, content, author, published } = req.body;
+        const { title, content, author, published, image } = req.body;
         await Post.findByIdAndUpdate(req.params.postid, {
             title,
             content,
             published,
+            image,
         });
         return res.status(200).json({ message: "Successfully updated post." });
     } catch (error) {
