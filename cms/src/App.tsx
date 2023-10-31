@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import UserProvider, { UserContext } from "./context/AuthContext";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import HomePage from "./pages/HomePage";
@@ -16,6 +16,7 @@ import AboutPage from "./pages/AboutPage";
 
 function App() {
     const { user } = useContext(UserContext);
+    const [authenticated, setAuthenticated] = useState(false);
 
     return (
         <ThemeProvider theme={theme}>
