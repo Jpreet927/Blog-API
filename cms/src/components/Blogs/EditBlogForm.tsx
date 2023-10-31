@@ -13,7 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { UserContext } from "../../context/AuthContext";
 import { Post } from "../../ts/types/Post";
 
-type CreateBlogForm = {
+type EditBlogForm = {
     image: string;
     title: string;
     content: string;
@@ -34,9 +34,9 @@ const EditBlogForm = ({ setEditBlogFormVisible, blogDetails }: Props) => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<CreateBlogForm>();
+    } = useForm<EditBlogForm>();
 
-    const createBlog: SubmitHandler<CreateBlogForm> = async (data) => {
+    const createBlog: SubmitHandler<EditBlogForm> = async (data) => {
         setSubmitted(true);
 
         try {
@@ -44,18 +44,22 @@ const EditBlogForm = ({ setEditBlogFormVisible, blogDetails }: Props) => {
                 title: data.title,
                 content: data.content,
                 author: user?._id,
+                image: data.image,
                 published: false,
             };
             const token = `Bearer ${user?.token}`;
 
-            const response = await fetch("http://localhost:5000/api/posts/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: token,
-                },
-                body: JSON.stringify(body),
-            });
+            const response = await fetch(
+                `http://localhost:5000/api/posts/${blogDetails._id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: token,
+                    },
+                    body: JSON.stringify(body),
+                }
+            );
             const responseData = await response.json();
             console.log(responseData);
         } catch (error: any) {
