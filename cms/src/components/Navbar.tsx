@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
 import CreateBlogForm from "./Blogs/CreateBlogForm";
+import FormContainer from "./Blogs/FormContainer";
 
 interface NavItemProps {
     route: string;
@@ -21,6 +22,10 @@ const Navbar = () => {
         color: location.pathname.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F",
         fontWeight: "700",
     };
+
+    if (location.pathname.includes("/login")) {
+        return <></>;
+    }
 
     return (
         <>
@@ -84,18 +89,6 @@ const Container = styled.div`
     padding: 2rem 6rem;
     position: relative;
     z-index: 998;
-`;
-
-const FormContainer = styled.div`
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    backdrop-filter: blur(40px);
-    justify-content: center;
-    align-items: center;
 `;
 
 const Title = styled.h3`
