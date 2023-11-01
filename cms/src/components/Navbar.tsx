@@ -14,12 +14,12 @@ const Navbar = () => {
 
     let linkStyle = {
         textDecoration: "none",
-        color: location.pathname.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F",
+        color: location.pathname.includes("/post/") ? "#FFFFFF" : "#3F3F3F",
     };
 
     let activeLinkStyle = {
         textDecoration: "none",
-        color: location.pathname.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F",
+        color: location.pathname.includes("/post/") ? "#FFFFFF" : "#3F3F3F",
         fontWeight: "700",
     };
 
@@ -94,7 +94,7 @@ const Container = styled.div`
 const Title = styled.h3`
     font-size: 1.4em;
     color: ${(props: NavItemProps) =>
-        props.route.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F"};
+        props.route.includes("/post/") ? "#FFFFFF" : "#3F3F3F"};
 `;
 
 const NavList = styled.ul`
@@ -107,7 +107,7 @@ const NavItem = styled.li`
     list-style: none;
     text-decoration: none;
     color: ${(props: NavItemProps) =>
-        props.route.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F"};
+        props.route.includes("/post/") ? "#FFFFFF" : "#3F3F3F"};
     position: relative;
 
     &:hover {
@@ -118,7 +118,7 @@ const NavItem = styled.li`
         content: "";
         position: absolute;
         background-color: ${(props: NavItemProps) =>
-            props.route.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F"};
+            props.route.includes("/post/") ? "#FFFFFF" : "#3F3F3F"};
         height: 1px;
         width: 0;
         left: 0;
@@ -139,16 +139,16 @@ export const Button = styled.button`
     border-radius: 100px;
     border: none;
     background-color: ${(props: NavItemProps) =>
-        props.route.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F"};
+        props.route.includes("/post/") ? "#FFFFFF" : "#3F3F3F"};
     color: ${(props: NavItemProps) =>
-        props.route.includes("/blogs/") ? "#3F3F3F" : "#FFFFFF"};
+        props.route.includes("/post/") ? "#3F3F3F" : "#FFFFFF"};
     font-weight: 700;
     transition: background-color 0.4s ease;
 
     &:hover {
         cursor: pointer;
         background-color: ${(props: NavItemProps) =>
-            props.route.includes("/blogs/") ? "#e5e5e5" : "black"};
+            props.route.includes("/post/") ? "#e5e5e5" : "black"};
     }
 `;
 
