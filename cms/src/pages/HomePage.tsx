@@ -4,7 +4,6 @@ import { Post } from "../ts/types/Post";
 import styled from "styled-components";
 import Divider from "../components/Divider";
 import Avatar from "../components/Author/Avatar";
-import { NavLink } from "react-router-dom";
 import FullBlog from "../components/Blogs/FullBlog";
 
 const HomePage = () => {
@@ -97,7 +96,7 @@ const Title = styled.h1`
 
 const AllBlogsWrapper = styled.div`
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
     gap: 2rem;
     margin-bottom: 5rem;

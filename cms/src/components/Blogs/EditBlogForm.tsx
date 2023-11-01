@@ -141,7 +141,6 @@ export const Form = styled.form`
     gap: 1rem;
     width: 450px;
     overflow: hidden;
-    /* padding: 32px; */
     background-color: #ffffffa7;
     backdrop-filter: blur(40px);
     border-radius: 1rem;

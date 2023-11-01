@@ -90,6 +90,7 @@ export const Form = styled.form`
     background-color: #ffffffa7;
     backdrop-filter: blur(40px);
     border-radius: 1rem;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.1);
 `;
 
 export const InputContainer = styled.div`
