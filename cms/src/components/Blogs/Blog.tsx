@@ -16,7 +16,7 @@ const Blog = ({ post }: { post: Post }) => {
 const Container = styled.div`
     aspect-ratio: 5 / 3;
     overflow: hidden;
-    border-radius: 30px;
+    border-radius: 20px;
     transition: transform 0.3s ease;
 
     &:hover {

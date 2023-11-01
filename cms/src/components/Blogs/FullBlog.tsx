@@ -13,12 +13,15 @@ const FullBlog = ({ post }: { post: Post }) => {
     return (
         <>
             <Container>
-                <Blog post={post} />
+                <BlogWrapper>
+                    <Blog post={post} />
+                </BlogWrapper>
                 <BlogDetails
                     post={post}
                     setEditBlogFormVisible={setEditBlogFormVisible}
                 />
             </Container>
+            <Divider />
             {editBlogFormVisible && (
                 <FormContainer>
                     <EditBlogForm
@@ -33,13 +36,20 @@ const FullBlog = ({ post }: { post: Post }) => {
 
 const Container = styled.div`
     display: flex;
-    flex-direction: column;
-    gap: 1em;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2em;
+    padding: 12px 0px 32px;
 `;
 
-const TagWrapper = styled.div`
-    display: flex;
-    gap: 1rem;
+const BlogWrapper = styled.div`
+    width: 25%;
+`;
+
+const Divider = styled.div`
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.25);
 `;
 
 export default FullBlog;
