@@ -44,12 +44,12 @@ const Navbar = () => {
                     </NavItem>
                     <NavItem route={location.pathname}>
                         <NavLink
-                            to="/test"
+                            to="/all"
                             style={({ isActive }) =>
                                 isActive ? activeLinkStyle : linkStyle
                             }
                         >
-                            Blogs
+                            All Blogs
                         </NavLink>
                     </NavItem>
                     <NavItem route={location.pathname}>
