@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
+import useDebounce from "../hooks/useDebounce";
 import { UserContext } from "../context/AuthContext";
 import { Post } from "../ts/types/Post";
 import styled from "styled-components";
@@ -9,20 +10,17 @@ const AllPostsPage = () => {
     const { user } = useContext(UserContext);
     const [posts, setPosts] = useState<Post[] | null>(null);
     const [search, setSearch] = useState("");
+    const debouncedSearch = useDebounce(search, 100);
 
     useEffect(() => {
         const fetchAuthorPosts = async () => {
-            if (user?._id) {
-                const response = await fetch(
-                    `http://localhost:5000/api/posts/`
-                );
+            const response = await fetch(`http://localhost:5000/api/posts/`);
 
-                const data = await response.json();
-                setPosts(data.posts);
-            }
+            const data = await response.json();
+            setPosts(data.posts);
         };
 
-        if (user?._id) fetchAuthorPosts();
+        fetchAuthorPosts();
     }, [user]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,9 +29,9 @@ const AllPostsPage = () => {
 
     const filterPosts = (post: Post) => {
         if (
-            post.title.toLowerCase().includes(search) ||
-            post.content.toLowerCase().includes(search) ||
-            post.author.toLowerCase().includes(search)
+            post.title.toLowerCase().includes(debouncedSearch) ||
+            post.content.toLowerCase().includes(debouncedSearch) ||
+            post.author.toLowerCase().includes(debouncedSearch)
         ) {
             return true;
         } else {
@@ -69,6 +67,7 @@ const AllPostsPage = () => {
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 5rem 0rem;
 `;
 
 const Section = styled.div`
@@ -76,7 +75,7 @@ const Section = styled.div`
     flex-direction: column;
     gap: 2em;
     color: ${({ theme }) => theme.colours.paragraph};
-    padding: 10rem 20rem 5rem 20rem;
+    padding: 4rem 20rem;
 
     @media only screen and (max-width: 1500px) {
         padding: 4rem 12rem;
