@@ -48,7 +48,7 @@ const Container = styled.div`
     color: ${({ theme }) => theme.colours.bgDark};
 
     @media only screen and (max-width: 600px) {
-        padding: 6rem 0rem;
+        height: 85vh;
     }
 `;
 
@@ -69,6 +69,10 @@ const ContentWrapper = styled.div`
 
     @media only screen and (max-width: 1200px) {
         padding: 4rem 8rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        padding: 4rem 3rem;
     }
 `;
 

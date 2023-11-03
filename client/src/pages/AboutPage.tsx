@@ -51,9 +51,9 @@ const AboutPage = () => {
                     </Paragraph>
                 </RightWrapper>
             </ContentWrapper>
-            <ContentWrapper>
+            <DividerWrapper>
                 <Divider />
-            </ContentWrapper>
+            </DividerWrapper>
         </Container>
     );
 };
@@ -84,7 +84,26 @@ const ContentWrapper = styled.div`
     }
 
     @media only screen and (max-width: 600px) {
-        padding: 10rem 0rem;
+        padding: 10rem 0rem 0rem 0rem;
+    }
+`;
+
+const DividerWrapper = styled.div`
+    display: flex;
+    gap: 4rem;
+    width: 66%;
+
+    @media only screen and (max-width: 1200px) {
+        width: 80%;
+    }
+
+    @media only screen and (max-width: 900px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        padding: 0rem 0rem 10rem 0rem;
     }
 `;
 

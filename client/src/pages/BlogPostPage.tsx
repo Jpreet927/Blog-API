@@ -103,6 +103,18 @@ const ContentWrapper = styled.div`
     gap: 2rem;
     width: 100%;
     padding: 4rem 25rem 6rem 25rem;
+
+    @media only screen and (max-width: 1500px) {
+        padding: 4rem 12rem;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        padding: 4rem 4rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        padding: 4rem 3rem;
+    }
 `;
 
 const BannerContainer = styled.div`
@@ -141,6 +153,13 @@ const TitleWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 1rem;
+    }
 `;
 
 const Title = styled.h1`

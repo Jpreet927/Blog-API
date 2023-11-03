@@ -31,14 +31,14 @@ const HomePage = () => {
                 <Divider />
                 <FeaturedWrapper>
                     {posts.slice(0, 3).map((post: Post) => (
-                        <FeaturedBlogWrapper>
+                        <AllBlogsWrapper>
                             <NavLink
                                 to={`/blogs/${post._id}`}
                                 style={{ textDecoration: "none" }}
                             >
                                 <FullBlog post={post} />
                             </NavLink>
-                        </FeaturedBlogWrapper>
+                        </AllBlogsWrapper>
                     ))}
                 </FeaturedWrapper>
             </Section>
@@ -80,7 +80,7 @@ const Section = styled.div`
     }
 
     @media only screen and (max-width: 1200px) {
-        padding: 4rem 6rem;
+        padding: 4rem 4rem;
     }
 
     @media only screen and (max-width: 600px) {
@@ -110,7 +110,7 @@ const AllBlogsWrapper = styled.div`
     margin-bottom: 5rem;
 
     @media only screen and (max-width: 750px) {
-        gap: 1rem;
+        margin-bottom: 0rem;
     }
 `;
 
@@ -122,6 +122,10 @@ const BlogWrapper = styled.div`
 
     @media only screen and (max-width: 750px) {
         flex: 1 0 40%;
+    }
+
+    @media only screen and (max-width: 500px) {
+        flex: 1 0 100%;
     }
 `;
 

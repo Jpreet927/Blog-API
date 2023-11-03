@@ -109,6 +109,10 @@ const Banner = styled.div<{ $bgimage?: string }>`
     background-position: center;
     background-size: cover;
     position: relative;
+
+    @media only screen and (max-width: 600px) {
+        height: 50vh;
+    }
 `;
 
 const BannerOverlay = styled.div`
@@ -123,6 +127,10 @@ const BannerOverlay = styled.div`
     position: absolute;
     top: 0;
     left: 0;
+
+    @media only screen and (max-width: 600px) {
+        height: 50vh;
+    }
 `;
 
 const AuthorDataContainer = styled.div`
@@ -130,6 +138,10 @@ const AuthorDataContainer = styled.div`
     align-items: center;
     gap: 24px;
     z-index: 10;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+    }
 `;
 
 const Title = styled.h1`

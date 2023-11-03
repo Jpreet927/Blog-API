@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
 
 type NavItemProps = {
     route: string;
@@ -14,6 +16,7 @@ type ContainerProps = {
 const Navbar = () => {
     const location = useLocation();
     const [navBackgroundVisible, setNavBackgroundVisible] = useState(false);
+    const [mobileNavVisible, setMobileNavVisible] = useState(false);
 
     useEffect(() => console.log(location.pathname.includes("/blogs/")), []);
 
@@ -42,40 +45,63 @@ const Navbar = () => {
 
     return (
         <Container $bgVisible={navBackgroundVisible} $route={location.pathname}>
-            <Title route={location.pathname}>Jaipreet Blog</Title>
-            <NavList>
-                <NavItem route={location.pathname}>
-                    <NavLink
-                        to="/"
-                        style={({ isActive }) =>
-                            isActive ? activeLinkStyle : linkStyle
-                        }
-                    >
-                        Home
-                    </NavLink>
-                </NavItem>
-                <NavItem route={location.pathname}>
-                    <NavLink
-                        to="/blogs"
-                        style={({ isActive }) =>
-                            isActive ? activeLinkStyle : linkStyle
-                        }
-                    >
-                        Blogs
-                    </NavLink>
-                </NavItem>
-                <NavItem route={location.pathname}>
-                    <NavLink
-                        to="/about"
-                        style={({ isActive }) =>
-                            isActive ? activeLinkStyle : linkStyle
-                        }
-                    >
-                        About
-                    </NavLink>
-                </NavItem>
-            </NavList>
-            <Button route={location.pathname}>Join The Blog</Button>
+            <TitleContainer
+                $mobileNav={mobileNavVisible}
+                $bgVisible={navBackgroundVisible}
+                $route={location.pathname}
+            >
+                <Title route={location.pathname}>Jaipreet Blog</Title>
+                <IconContainer
+                    $mobileNav={mobileNavVisible}
+                    $bgVisible={navBackgroundVisible}
+                    $route={location.pathname}
+                    onClick={() => setMobileNavVisible((prev) => !prev)}
+                >
+                    {mobileNavVisible ? <CloseIcon /> : <MenuIcon />}
+                </IconContainer>
+            </TitleContainer>
+            <NavContainer
+                $mobileNav={mobileNavVisible}
+                $bgVisible={navBackgroundVisible}
+                $route={location.pathname}
+            >
+                <NavList>
+                    <NavItem route={location.pathname}>
+                        <NavLink
+                            to="/"
+                            style={({ isActive }) =>
+                                isActive ? activeLinkStyle : linkStyle
+                            }
+                            onClick={() => setMobileNavVisible(false)}
+                        >
+                            Home
+                        </NavLink>
+                    </NavItem>
+                    <NavItem route={location.pathname}>
+                        <NavLink
+                            to="/blogs"
+                            style={({ isActive }) =>
+                                isActive ? activeLinkStyle : linkStyle
+                            }
+                            onClick={() => setMobileNavVisible(false)}
+                        >
+                            Blogs
+                        </NavLink>
+                    </NavItem>
+                    <NavItem route={location.pathname}>
+                        <NavLink
+                            to="/about"
+                            style={({ isActive }) =>
+                                isActive ? activeLinkStyle : linkStyle
+                            }
+                            onClick={() => setMobileNavVisible(false)}
+                        >
+                            About
+                        </NavLink>
+                    </NavItem>
+                </NavList>
+                <Button route={location.pathname}>Join The Blog</Button>
+            </NavContainer>
         </Container>
     );
 };
@@ -95,18 +121,108 @@ const Container = styled.div<{ $bgVisible: boolean; $route: string }>`
                 : "#dadada"
             : ""};
     transition: background-color 300ms ease-in-out;
+
+    @media only screen and (max-width: 1500px) {
+        padding: 2rem 4rem;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        padding: 2rem 3rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        padding: 0rem;
+        flex-direction: column;
+    }
+`;
+
+const IconContainer = styled.div<{
+    $mobileNav: boolean;
+    $bgVisible: boolean;
+    $route: string;
+}>`
+    display: none;
+    transition: transform 100ms linear;
+    color: ${(props) =>
+        props.$route.includes("/blogs/") ? "#dadada" : "#3f3f3f"};
+
+    @media only screen and (max-width: 600px) {
+        display: block;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+`;
+
+const TitleContainer = styled.div<{
+    $mobileNav: boolean;
+    $bgVisible: boolean;
+    $route: string;
+}>`
+    @media only screen and (max-width: 600px) {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        background-color: ${(props) =>
+            props.$bgVisible || props.$mobileNav
+                ? props.$route.includes("/blogs/")
+                    ? "#3f3f3f"
+                    : "#dadada"
+                : ""};
+        padding: ${(props) => (props.$mobileNav ? "4rem 4rem" : "2rem 4rem")};
+        align-items: center;
+        gap: 4rem;
+    }
 `;
 
 const Title = styled.h3`
     font-size: 1.4em;
     color: ${(props: NavItemProps) =>
         props.route.includes("/blogs/") ? "#FFFFFF" : "#3F3F3F"};
+
+    @media only screen and (max-width: 600px) {
+        font-size: 2rem;
+    }
+`;
+
+const NavContainer = styled.div<{
+    $mobileNav: boolean;
+    $bgVisible: boolean;
+    $route: string;
+}>`
+    @media only screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        overflow-y: hidden;
+        background-color: ${(props) =>
+            props.$bgVisible || props.$mobileNav
+                ? props.$route.includes("/blogs/")
+                    ? "#3f3f3f"
+                    : "#dadada"
+                : ""};
+        padding: 0rem 4rem 4rem 4rem;
+        align-items: start;
+        justify-content: start;
+        gap: 4rem;
+        display: ${(props) => (props.$mobileNav ? "flex" : "none")};
+    }
 `;
 
 const NavList = styled.ul`
     display: flex;
     justify-content: space-between;
     width: 25%;
+    gap: 2rem;
+
+    @media only screen and (max-width: 600px) {
+        width: fit-content;
+        flex-direction: column;
+        gap: 4rem;
+    }
 `;
 
 const NavItem = styled.li`
@@ -135,6 +251,10 @@ const NavItem = styled.li`
     &:hover::after {
         width: 100%;
     }
+
+    @media only screen and (max-width: 600px) {
+        font-size: 24px;
+    }
 `;
 
 const Button = styled.button`
@@ -155,6 +275,11 @@ const Button = styled.button`
         cursor: pointer;
         background-color: ${(props: NavItemProps) =>
             props.route.includes("/blogs/") ? "#e5e5e5" : "black"};
+    }
+
+    @media only screen and (max-width: 600px) {
+        font-size: 24px;
+        padding: 16px 32px;
     }
 `;
 

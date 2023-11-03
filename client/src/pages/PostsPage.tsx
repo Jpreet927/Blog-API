@@ -49,6 +49,14 @@ const TitleWrapper = styled.div`
     flex-direction: column;
     gap: 2rem;
     padding: 10rem 18rem 2rem 18rem;
+
+    @media only screen and (max-width: 1200px) {
+        padding: 10rem 6rem 2rem 6rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+        padding: 10rem 3rem 2rem 3rem;
+    }
 `;
 
 const PostsWrapper = styled.div`
