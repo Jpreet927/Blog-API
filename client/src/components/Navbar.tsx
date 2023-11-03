@@ -192,8 +192,12 @@ const NavContainer = styled.div<{
     $bgVisible: boolean;
     $route: string;
 }>`
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    align-items: center;
+
     @media only screen and (max-width: 600px) {
-        display: flex;
         flex-direction: column;
         width: 100%;
         height: 100vh;
