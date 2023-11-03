@@ -15,6 +15,11 @@ const Container = styled.div`
     backdrop-filter: blur(40px);
     justify-content: center;
     align-items: center;
+    padding: 2rem;
+
+    @media only screen and (max-width: 600px) {
+        z-index: 998;
+    }
 `;
 
 export default FormContainer;

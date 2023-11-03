@@ -89,6 +89,10 @@ const Banner = styled.div<{ $bgimage?: string }>`
     background-image: url(${(props) => props.$bgimage});
     background-color: #dadada;
     position: relative;
+
+    @media only screen and (max-width: 600px) {
+        height: 50vh;
+    }
 `;
 
 const BannerOverlay = styled.div`
@@ -103,6 +107,10 @@ const BannerOverlay = styled.div`
     position: absolute;
     top: 0;
     left: 0;
+
+    @media only screen and (max-width: 600px) {
+        height: 50vh;
+    }
 `;
 
 const AuthorDataContainer = styled.div`
@@ -111,6 +119,10 @@ const AuthorDataContainer = styled.div`
     gap: 24px;
     opacity: 100%;
     z-index: 10;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+    }
 `;
 
 const Title = styled.h1`
