@@ -5,10 +5,15 @@ import styled from "styled-components";
 import Divider from "../components/Divider";
 import Avatar from "../components/Author/Avatar";
 import FullBlog from "../components/Blogs/FullBlog";
+import defaultBanner from "../assets/bg.jpg";
 
 const HomePage = () => {
     const { user } = useContext(UserContext);
     const [posts, setPosts] = useState<Post[] | null>(null);
+
+    useEffect(() => {
+        console.log(posts && posts?.length > 0 ? posts[0].image : "");
+    }, [posts]);
 
     useEffect(() => {
         const fetchAuthorPosts = async () => {
@@ -28,6 +33,7 @@ const HomePage = () => {
     return (
         <Container>
             <Banner $bgimage={posts && posts?.length > 0 ? posts[0].image : ""}>
+                <BannerOverlay />
                 <AuthorDataContainer>
                     <Avatar dimensions="100px" name={user?.username} />
                     <Title>{user?.username}</Title>
@@ -74,20 +80,37 @@ const Section = styled.div`
 `;
 
 const Banner = styled.div<{ $bgimage?: string }>`
-    background-color: #dadada;
     height: 40vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 30px;
-    background-image: ${(props) => props.$bgimage};
+    background-image: url(${(props) => props.$bgimage});
+    background-color: #dadada;
+    position: relative;
+`;
+
+const BannerOverlay = styled.div`
+    height: 40vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    background-color: #ffffff;
+    opacity: 85%;
+    position: absolute;
+    top: 0;
+    left: 0;
 `;
 
 const AuthorDataContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 24px;
+    opacity: 100%;
+    z-index: 10;
 `;
 
 const Title = styled.h1`

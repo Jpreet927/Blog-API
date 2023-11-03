@@ -46,6 +46,7 @@ const AuthorPage = () => {
     return (
         <Container>
             <Banner $bgimage={posts ? posts[0].image : ""}>
+                <BannerOverlay />
                 <AuthorDataContainer>
                     <Avatar dimensions="100px" name={author?.username} />
                     <Title>{author?.username}</Title>
@@ -97,20 +98,38 @@ const Section = styled.div`
 `;
 
 const Banner = styled.div<{ $bgimage?: string }>`
-    background-color: #dadada;
     height: 40vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 30px;
-    background-image: ${(props) => props.$bgimage};
+    background-image: url(${(props) => props.$bgimage});
+    background-color: #dadada;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+`;
+
+const BannerOverlay = styled.div`
+    height: 40vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    background-color: #ffffff;
+    opacity: 85%;
+    position: absolute;
+    top: 0;
+    left: 0;
 `;
 
 const AuthorDataContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 24px;
+    z-index: 10;
 `;
 
 const Title = styled.h1`
