@@ -18,20 +18,18 @@ const BlogDetails = ({ post, setEditBlogFormVisible }: Props) => {
             <Container>
                 <TitleContainer>
                     <Title>{post.title}</Title>
-                    <ButtonContainer>
-                        <Button onClick={() => setEditBlogFormVisible(true)}>
-                            Edit
-                        </Button>
-                        <DeleteButton
-                            onClick={() => setConfirmDeleteVisible(true)}
-                        >
-                            <DeleteIcon />
-                        </DeleteButton>
-                    </ButtonContainer>
+                    <Subtitle>
+                        {post.content.split(" ").slice(0, 20).join(" ") + "..."}
+                    </Subtitle>
                 </TitleContainer>
-                <Subtitle>
-                    {post.content.split(" ").slice(0, 20).join(" ") + "..."}
-                </Subtitle>
+                <ButtonContainer>
+                    <Button onClick={() => setEditBlogFormVisible(true)}>
+                        Edit
+                    </Button>
+                    <DeleteButton onClick={() => setConfirmDeleteVisible(true)}>
+                        <DeleteIcon />
+                    </DeleteButton>
+                </ButtonContainer>
             </Container>
             {confirmDeleteVisible && (
                 <FormContainer>
@@ -47,20 +45,30 @@ const BlogDetails = ({ post, setEditBlogFormVisible }: Props) => {
 
 const Container = styled.div`
     display: flex;
-    flex-direction: column;
     width: 100%;
-    gap: 0;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
     color: ${({ theme }) => theme.colours.paragraph};
+
+    @media only screen and (max-width: 400px) {
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+    }
 `;
 
 const TitleContainer = styled.div`
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
 `;
 
 const Title = styled.h3`
     font-size: 24px;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 18px;
+    }
 `;
 
 const Subtitle = styled.p`
@@ -68,6 +76,10 @@ const Subtitle = styled.p`
     font-style: italic;
     line-height: 1.6em;
     color: ${({ theme }) => theme.colours.subtext};
+
+    @media only screen and (max-width: 600px) {
+        display: none;
+    }
 `;
 
 const ButtonContainer = styled.div`

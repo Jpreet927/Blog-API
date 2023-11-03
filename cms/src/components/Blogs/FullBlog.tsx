@@ -38,12 +38,13 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2em;
+    gap: 1em;
     padding: 12px 0px 32px;
 `;
 
 const BlogWrapper = styled.div`
     width: 25%;
+    min-width: 25%;
 `;
 
 const Divider = styled.div`
