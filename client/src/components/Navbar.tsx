@@ -2,14 +2,32 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
 
-interface NavItemProps {
+type NavItemProps = {
     route: string;
-}
+};
+
+type ContainerProps = {
+    $bgVisible: boolean;
+    $route: string;
+};
 
 const Navbar = () => {
     const location = useLocation();
+    const [navBackgroundVisible, setNavBackgroundVisible] = useState(false);
 
     useEffect(() => console.log(location.pathname.includes("/blogs/")), []);
+
+    useEffect(() => {
+        const toggleBackground = () => {
+            if (window.scrollY > 100) {
+                setNavBackgroundVisible(true);
+            } else {
+                setNavBackgroundVisible(false);
+            }
+        };
+
+        window.addEventListener("scroll", toggleBackground);
+    }, []);
 
     let linkStyle = {
         textDecoration: "none",
@@ -23,7 +41,7 @@ const Navbar = () => {
     };
 
     return (
-        <Container>
+        <Container $bgVisible={navBackgroundVisible} $route={location.pathname}>
             <Title route={location.pathname}>Jaipreet Blog</Title>
             <NavList>
                 <NavItem route={location.pathname}>
@@ -62,12 +80,21 @@ const Navbar = () => {
     );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ $bgVisible: boolean; $route: string }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100vw;
     padding: 2rem 6rem;
+    position: relative;
+    z-index: 998;
+    background-color: ${(props: ContainerProps) =>
+        props.$bgVisible
+            ? props.$route.includes("/blogs/")
+                ? "#3f3f3f"
+                : "#dadada"
+            : ""};
+    transition: background-color 300ms ease-in-out;
 `;
 
 const Title = styled.h3`

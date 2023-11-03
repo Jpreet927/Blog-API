@@ -4,13 +4,19 @@ import { NavLink, useLocation } from "react-router-dom";
 import CreateBlogForm from "./Blogs/CreateBlogForm";
 import FormContainer from "./Blogs/FormContainer";
 
-interface NavItemProps {
+type NavItemProps = {
     route: string;
-}
+};
+
+type ContainerProps = {
+    $bgVisible: boolean;
+    $route: string;
+};
 
 const Navbar = () => {
     const location = useLocation();
     const [createBlogFormVisible, setCreateBlogFormVisible] = useState(false);
+    const [navBackgroundVisible, setNavBackgroundVisible] = useState(false);
 
     let linkStyle = {
         textDecoration: "none",
@@ -23,13 +29,28 @@ const Navbar = () => {
         fontWeight: "700",
     };
 
+    useEffect(() => {
+        const toggleBackground = () => {
+            if (window.scrollY > 100) {
+                setNavBackgroundVisible(true);
+            } else {
+                setNavBackgroundVisible(false);
+            }
+        };
+
+        window.addEventListener("scroll", toggleBackground);
+    }, []);
+
     if (location.pathname.includes("/login")) {
         return <></>;
     }
 
     return (
         <>
-            <Container>
+            <Container
+                $bgVisible={navBackgroundVisible}
+                $route={location.pathname}
+            >
                 <Title route={location.pathname}>Jaipreet Blog</Title>
                 <NavList>
                     <NavItem route={location.pathname}>
@@ -81,7 +102,7 @@ const Navbar = () => {
     );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ $bgVisible: boolean; $route: string }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -89,6 +110,13 @@ const Container = styled.div`
     padding: 2rem 6rem;
     position: relative;
     z-index: 998;
+    background-color: ${(props: ContainerProps) =>
+        props.$bgVisible
+            ? props.$route.includes("/post/")
+                ? "#3f3f3f"
+                : "#dadada"
+            : ""};
+    transition: background-color 300ms ease-in-out;
 `;
 
 const Title = styled.h3`
