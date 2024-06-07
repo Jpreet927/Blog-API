@@ -12,10 +12,6 @@ const HomePage = () => {
     const [posts, setPosts] = useState<Post[] | null>(null);
 
     useEffect(() => {
-        console.log(posts && posts?.length > 0 ? posts[0].image : "");
-    }, [posts]);
-
-    useEffect(() => {
         const fetchAuthorPosts = async () => {
             if (user?._id) {
                 const response = await fetch(

@@ -18,8 +18,6 @@ const Navbar = () => {
     const [navBackgroundVisible, setNavBackgroundVisible] = useState(false);
     const [mobileNavVisible, setMobileNavVisible] = useState(false);
 
-    useEffect(() => console.log(location.pathname.includes("/blogs/")), []);
-
     useEffect(() => {
         const toggleBackground = () => {
             if (window.scrollY > 100) {

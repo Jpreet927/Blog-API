@@ -36,7 +36,6 @@ const RegisterForm = ({ setRegister, notify }: Props) => {
     };
 
     const submitForm: SubmitHandler<RegisterForm> = async (data) => {
-        console.log(data);
         try {
             const response = await fetch(
                 "http://localhost:5000/api/users/register",

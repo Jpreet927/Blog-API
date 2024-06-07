@@ -55,7 +55,6 @@ const CreateBlogForm = ({ setCreateBlogFormVisible }: Props) => {
                 body: JSON.stringify(body),
             });
             const responseData = await response.json();
-            console.log(responseData);
         } catch (error: any) {
             setSubmitError(error.message);
         }

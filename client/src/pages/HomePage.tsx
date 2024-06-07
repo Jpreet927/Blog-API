@@ -13,7 +13,6 @@ const HomePage = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        console.log(URL);
         const fetchData = async () => {
             try {
                 const response = await fetch(URL + "/posts");
