@@ -7,6 +7,7 @@ import Divider from "../components/Divider";
 import Blog from "../components/Blog Posts/Blog";
 import FullBlog from "../components/Blog Posts/FullBlog";
 import Avatar from "../components/Author/Avatar";
+import { URL } from "./HomePage";
 
 const AuthorPage = () => {
     const { authorid } = useParams();
@@ -16,9 +17,7 @@ const AuthorPage = () => {
     useEffect(() => {
         const fetchAuthorData = async () => {
             if (authorid) {
-                const response = await fetch(
-                    `http://localhost:5000/api/users/${authorid}`
-                );
+                const response = await fetch(URL + `/users/${authorid}`);
 
                 const data = await response.json();
                 setAuthor(data.user);

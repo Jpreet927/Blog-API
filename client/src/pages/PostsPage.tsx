@@ -3,16 +3,16 @@ import styled from "styled-components";
 import Divider from "../components/Divider";
 import FullBlog from "../components/Posts Page/FullBlog";
 import { Post } from "../ts/types/Post";
+import { URL } from "./HomePage";
 
 const PostsPage = () => {
     const [posts, setPosts] = useState([]);
     const [error, setError] = useState("");
-    const URL = process.env.API_BASE_URL;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:5000/api/posts");
+                const response = await fetch(URL + "/posts");
                 const data = await response.json();
                 setPosts(data.posts);
             } catch (error) {

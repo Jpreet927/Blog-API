@@ -7,14 +7,16 @@ import FullBlog from "../components/Blog Posts/FullBlog";
 import { Post } from "../ts/types/Post";
 import { NavLink, useLocation } from "react-router-dom";
 
+export const URL = process.env.REACT_APP_API_BASE_URL;
+
 const HomePage = () => {
     const [posts, setPosts] = useState([]);
-    const URL = process.env.API_BASE_URL;
 
     useEffect(() => {
+        console.log(URL);
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:5000/api/posts");
+                const response = await fetch(URL + "/posts");
                 const data = await response.json();
                 setPosts(data.posts);
             } catch (error) {}

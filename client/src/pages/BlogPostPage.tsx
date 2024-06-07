@@ -8,6 +8,7 @@ import Divider from "../components/Divider";
 import AuthorTag from "../components/Author/AuthorTag";
 import { useParams } from "react-router-dom";
 import { Post } from "../ts/types/Post";
+import { URL } from "./HomePage";
 
 const BlogPostPage = () => {
     const { blogid } = useParams();
@@ -15,9 +16,7 @@ const BlogPostPage = () => {
 
     useEffect(() => {
         const fetchPostData = async () => {
-            const response = await fetch(
-                `http://localhost:5000/api/posts/${blogid}`
-            );
+            const response = await fetch(URL + `/posts/${blogid}`);
             const data = await response.json();
 
             setPost(data.post);
