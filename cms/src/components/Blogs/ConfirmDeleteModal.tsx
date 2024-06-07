@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 import { UserContext } from "../../context/AuthContext";
 import { Post } from "../../ts/types/Post";
+import { URL } from "../../pages/HomePage";
 
 type Props = {
     setConfirmDeleteVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,16 +20,13 @@ const ConfirmDeleteModal = ({
     const deleteBlogPost = async () => {
         try {
             const token = `Bearer ${user?.token}`;
-            const response = await fetch(
-                `http://localhost:5000/api/posts/${blogDetails._id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: token,
-                    },
-                }
-            );
+            const response = await fetch(URL + `/posts/${blogDetails._id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token,
+                },
+            });
 
             setConfirmDeleteVisible(false);
         } catch (error: any) {

@@ -12,6 +12,7 @@ import {
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 import { UserContext } from "../../context/AuthContext";
+import { URL } from "../../pages/HomePage";
 
 type CreateBlogForm = {
     title: string;
@@ -46,7 +47,7 @@ const CreateBlogForm = ({ setCreateBlogFormVisible }: Props) => {
             };
             const token = `Bearer ${user?.token}`;
 
-            const response = await fetch("http://localhost:5000/api/posts/", {
+            const response = await fetch(URL + "/posts/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

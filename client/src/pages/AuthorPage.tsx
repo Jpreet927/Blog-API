@@ -30,9 +30,7 @@ const AuthorPage = () => {
     useEffect(() => {
         const fetchAuthorPosts = async () => {
             if (authorid) {
-                const response = await fetch(
-                    `http://localhost:5000/api/posts/author/${authorid}`
-                );
+                const response = await fetch(URL + `/posts/author/${authorid}`);
 
                 const data = await response.json();
                 setPosts(data.posts);

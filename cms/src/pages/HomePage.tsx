@@ -5,7 +5,8 @@ import styled from "styled-components";
 import Divider from "../components/Divider";
 import Avatar from "../components/Author/Avatar";
 import FullBlog from "../components/Blogs/FullBlog";
-import defaultBanner from "../assets/bg.jpg";
+
+export const URL = process.env.REACT_APP_API_BASE_URL;
 
 const HomePage = () => {
     const { user } = useContext(UserContext);
@@ -14,9 +15,7 @@ const HomePage = () => {
     useEffect(() => {
         const fetchAuthorPosts = async () => {
             if (user?._id) {
-                const response = await fetch(
-                    `http://localhost:5000/api/posts/author/${user._id}`
-                );
+                const response = await fetch(URL + `/posts/author/${user._id}`);
 
                 const data = await response.json();
                 setPosts(data.posts);

@@ -49,17 +49,14 @@ const EditBlogForm = ({ setEditBlogFormVisible, blogDetails }: Props) => {
             };
             const token = `Bearer ${user?.token}`;
 
-            const response = await fetch(
-                `http://localhost:5000/api/posts/${blogDetails._id}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: token,
-                    },
-                    body: JSON.stringify(body),
-                }
-            );
+            const response = await fetch(URL + `/posts/${blogDetails._id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token,
+                },
+                body: JSON.stringify(body),
+            });
             const responseData = await response.json();
         } catch (error: any) {
             setSubmitError(error.message);

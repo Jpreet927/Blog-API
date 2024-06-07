@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../context/AuthContext";
+import { URL } from "../../pages/HomePage";
 
 type LoginForm = {
     email: string;
@@ -26,16 +27,13 @@ const LoginForm = ({ setLogin, notify }: Props) => {
 
     const submitForm: SubmitHandler<LoginForm> = async (data) => {
         try {
-            const response = await fetch(
-                "http://localhost:5000/api/users/login",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                }
-            );
+            const response = await fetch(URL + "/users/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
             const responseData = await response.json();
             setUser({ ...responseData.user, token: responseData.token });
             notify("Successfully logged in!");

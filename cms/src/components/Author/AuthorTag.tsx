@@ -4,6 +4,7 @@ import Avatar from "./Avatar";
 import { User } from "../../ts/types/User";
 import Moment from "react-moment";
 import { NavLink } from "react-router-dom";
+import { URL } from "../../pages/HomePage";
 
 type Props = {
     authorId: string | undefined;
@@ -16,9 +17,7 @@ const AuthorTag = ({ authorId, date }: Props) => {
     useEffect(() => {
         const fetchAuthorData = async () => {
             if (authorId) {
-                const response = await fetch(
-                    `http://localhost:5000/api/users/${authorId}`
-                );
+                const response = await fetch(URL + `/users/${authorId}`);
                 const data = await response.json();
 
                 setAuthor(data.user);

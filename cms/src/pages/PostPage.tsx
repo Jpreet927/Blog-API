@@ -11,6 +11,7 @@ import { Post } from "../ts/types/Post";
 import VerticalDivider from "../components/VerticalDivider";
 import FormContainer from "../components/Blogs/FormContainer";
 import EditBlogForm from "../components/Blogs/EditBlogForm";
+import { URL } from "./HomePage";
 
 const PostPage = () => {
     const { postid } = useParams();
@@ -19,9 +20,7 @@ const PostPage = () => {
 
     useEffect(() => {
         const fetchPostData = async () => {
-            const response = await fetch(
-                `http://localhost:5000/api/posts/${postid}`
-            );
+            const response = await fetch(URL + `/posts/${postid}`);
             const data = await response.json();
 
             setPost(data.post);

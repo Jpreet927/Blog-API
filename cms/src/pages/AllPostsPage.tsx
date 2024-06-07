@@ -14,7 +14,7 @@ const AllPostsPage = () => {
 
     useEffect(() => {
         const fetchAuthorPosts = async () => {
-            const response = await fetch(`http://localhost:5000/api/posts/`);
+            const response = await fetch(URL + `/posts/`);
 
             const data = await response.json();
             setPosts(data.posts);
